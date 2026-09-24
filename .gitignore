@@ -1,0 +1,46 @@
+# Unity — pliki generowane
+/[Ll]ibrary/
+/[Tt]emp/
+/[Oo]bj/
+/[Bb]uild/
+/[Bb]uilds/
+/[Ll]ogs/
+/[Uu]ser[Ss]ettings/
+/[Mm]emoryCaptures/
+/[Rr]ecordings/
+
+# Pliki IDE
+.vs/
+.vscode/
+.idea/
+*.csproj
+*.unityproj
+*.sln
+*.suo
+*.tmp
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+
+# Buildy i crashe
+*.apk
+*.aab
+*.unitypackage
+*.app
+crashlytics-buildid.txt
+sysinfo.txt
+/[Aa]ssets/[Ss]treamingAssets/aa*
+
+# System
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Lokalne ustawienia Claude Code
+.claude/settings.local.json
