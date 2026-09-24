@@ -4,7 +4,7 @@ Claude dopisuje tu wpis na końcu każdego etapu. Najnowszy wpis na górze.
 
 ## Stan obecny
 
-- Etap: M1 „Sztacheta i manekin” gotowy na gałęzi `m1-sztacheta`, czeka na test ręczny i scalenie do `main`.
+- Etap: M1 „Sztacheta i manekin” ukończony, sprawdzony ręcznie („sztacheta działa”), scalony do `main` (tag `m1`).
 - Następny krok: M2 — proca na śruby (strzał za Złom, pociski z puli, odbicie od ściany).
 - Kolejność ustalona z autorem: M2 = proca, M3 = pierwsi wrogowie z telegrafami.
 
@@ -54,7 +54,8 @@ Claude dopisuje tu wpis na końcu każdego etapu. Najnowszy wpis na górze.
   - Wstrząs ekranu (Cinemachine Impulse), dźwięki trafień, efekty.
   - Rozbijanie tarcz 3. ciosem (przy Milicjancie), krytyki, pozostałe bronie białe.
   - Czar na Q (Moc już się ładuje).
-- Tag git: brak (po akceptacji: `m1`).
+- Test ręczny (2026-09-24): kamera OK, sztacheta działa (po dodaniu widocznego zamachu).
+- Tag git: `m1`.
 
 ### 2026-09-24 — M0 Ruch i kamera
 - Zakres ustalony z GDD (sekcja 3 i 13), bo zakładka „Plan produkcji” nie była dostępna.
