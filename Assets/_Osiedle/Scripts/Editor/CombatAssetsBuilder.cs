@@ -13,7 +13,38 @@ namespace Osiedle.Editor
         public const string ScrapPrefabPath = BuilderUtils.Root + "/Prefabs/Pickups/Scrap.prefab";
         public const string DummyPrefabPath = BuilderUtils.Root + "/Prefabs/Enemies/TrainingDummy.prefab";
 
+        public const string ProcaPath = BuilderUtils.Root + "/Data/Weapons/Proca.asset";
+        public const string BoltPrefabPath = BuilderUtils.Root + "/Prefabs/Projectiles/Sruba.prefab";
+
+        // Wygląd śruby i jej smugi — tylko czytelność, nie balans.
+        const float BoltVisualSize = 0.18f;
+        const float TrailTime = 0.08f;
+        const float TrailWidth = 0.12f;
+
         public static MeleeWeaponData Sztacheta() => BuilderUtils.LoadOrCreateData<MeleeWeaponData>(SztachetaPath);
+
+        public static RangedWeaponData Proca() => BuilderUtils.LoadOrCreateData<RangedWeaponData>(ProcaPath);
+
+        public static Projectile BoltPrefab(BuilderMaterials materials)
+        {
+            var root = new GameObject("Sruba");
+            root.AddComponent<Projectile>();
+
+            var body = BuilderUtils.Visual(PrimitiveType.Sphere, "Glowka", root.transform, materials.Bolt);
+            body.transform.localScale = new Vector3(BoltVisualSize, BoltVisualSize, BoltVisualSize * 1.6f);
+
+            // Krótka smuga za pociskiem: przy 22 m/s bez niej śruby prawie nie widać.
+            var trail = root.AddComponent<TrailRenderer>();
+            trail.time = TrailTime;
+            trail.widthMultiplier = TrailWidth;
+            trail.widthCurve = AnimationCurve.Linear(0f, 1f, 1f, 0f);
+            trail.minVertexDistance = 0.05f;
+            trail.sharedMaterial = materials.BoltTrail;
+            trail.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+            trail.receiveShadows = false;
+
+            return BuilderUtils.SavePrefab(root, BoltPrefabPath).GetComponent<Projectile>();
+        }
 
         public static EnemyData DummyData() => BuilderUtils.LoadOrCreateData<EnemyData>(DummyDataPath);
 

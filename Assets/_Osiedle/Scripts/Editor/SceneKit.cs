@@ -82,6 +82,19 @@ namespace Osiedle.Editor
             var follow = vcamGo.AddComponent<CinemachineFollow>();
             var topDown = vcamGo.AddComponent<TopDownCamera>();
             BuilderUtils.Wire(topDown, ("data", data));
+
+            // Odbiornik wstrząsów ekranu (CameraShake na graczu wysyła impulsy).
+            var listener = vcamGo.AddComponent<CinemachineImpulseListener>();
+            listener.ApplyAfter = CinemachineCore.Stage.Noise;
+            listener.ChannelMask = 1;
+            listener.Gain = 1f;
+            listener.UseCameraSpace = true;
+            listener.ReactionSettings = new CinemachineImpulseListener.ImpulseReaction
+            {
+                AmplitudeGain = 1f,
+                FrequencyGain = 1f,
+                Duration = 1f,
+            };
             vcam.Follow = cameraTarget.transform;
             TopDownCamera.Apply(data, vcam, follow);
             vcamGo.transform.position = cameraTarget.transform.position + follow.FollowOffset;
@@ -89,5 +102,23 @@ namespace Osiedle.Editor
         }
 
         public static void HitStop() => new GameObject("HitStop").AddComponent<HitStop>();
+
+        // Grubość jasnej krawędzi na obiektach do wskoczenia (m).
+        const float EdgeThickness = 0.06f;
+
+        /// <summary>Bryła, na którą da się wskoczyć dashem, z jasną krawędzią na górze.</summary>
+        public static GameObject VaultBlock(string name, Vector3 center, Vector3 size, BuilderMaterials materials, Transform parent)
+        {
+            var go = BuilderUtils.Block(name, center, size, materials.Vaultable, parent);
+            go.AddComponent<Vaultable>();
+
+            // Jasna krawędź na górze: gracz od razu widzi, że da się tu wskoczyć.
+            float edgeScaleY = EdgeThickness / size.y;
+            var edge = BuilderUtils.Visual(PrimitiveType.Cube, "JasnaKrawedz", go.transform, materials.VaultEdge);
+            edge.transform.localPosition = new Vector3(0f, 0.5f, 0f);
+            edge.transform.localScale = new Vector3(1.02f, edgeScaleY, 1.02f);
+            edge.isStatic = true;
+            return go;
+        }
     }
 }

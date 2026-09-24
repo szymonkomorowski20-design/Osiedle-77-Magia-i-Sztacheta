@@ -31,7 +31,15 @@ namespace Osiedle.Core
         /// <summary>Zmieniła się Moc gracza. Parametry: obecnie, maksimum.</summary>
         public static event Action<float, float> OnPowerChanged;
 
+        /// <summary>Gracz strzelił. Parametry: punkt wylotu, kierunek, siła wstrząsu ekranu.</summary>
+        public static event Action<Vector3, Vector3, float> OnShot;
+
+        /// <summary>Gracz chciał strzelić, ale brakuje Złomu („pusty” klik).</summary>
+        public static event Action OnOutOfScrap;
+
         public static void RaiseDash(Vector3 direction) => OnDash?.Invoke(direction);
+        public static void RaiseShot(Vector3 origin, Vector3 direction, float shake) => OnShot?.Invoke(origin, direction, shake);
+        public static void RaiseOutOfScrap() => OnOutOfScrap?.Invoke();
         public static void RaiseVault(Vector3 landingPoint) => OnVault?.Invoke(landingPoint);
         public static void RaiseHit(DamageInfo info, Hurtbox target) => OnHit?.Invoke(info, target);
         public static void RaiseKill(DamageInfo info, Health victim) => OnKill?.Invoke(info, victim);
@@ -50,6 +58,8 @@ namespace Osiedle.Core
             OnDamageTaken = null;
             OnScrapChanged = null;
             OnPowerChanged = null;
+            OnShot = null;
+            OnOutOfScrap = null;
         }
     }
 }

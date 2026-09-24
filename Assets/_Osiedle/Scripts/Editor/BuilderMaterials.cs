@@ -12,7 +12,7 @@ namespace Osiedle.Editor
         const string Folder = BuilderUtils.Root + "/Art/Materials";
         const string BaseColorProperty = "_BaseColor";
 
-        public Material Floor, Wall, Vaultable, VaultEdge, Player, PlayerFace, Arrow, Dummy, Scrap, Weapon;
+        public Material Floor, Wall, Vaultable, VaultEdge, Player, PlayerFace, Arrow, Dummy, Scrap, Weapon, Bolt, BoltTrail;
 
         public static BuilderMaterials Build()
         {
@@ -30,16 +30,22 @@ namespace Osiedle.Editor
                 Scrap = Grey("M_Scrap", new Color(0.74f, 0.75f, 0.78f)),
                 // Jasne, spłowiałe drewno sztachety — musi być widoczne na szarej podłodze.
                 Weapon = Grey("M_Weapon", new Color(0.80f, 0.74f, 0.62f)),
+                // Śruba z procy: jasna stal; smuga bez oświetlenia, żeby pocisk był widoczny w ruchu.
+                Bolt = Grey("M_Bolt", new Color(0.88f, 0.89f, 0.92f)),
+                BoltTrail = Grey("M_BoltTrail", new Color(0.95f, 0.95f, 0.93f), UnlitShader),
             };
         }
 
-        static Material Grey(string name, Color color)
+        const string LitShader = "Universal Render Pipeline/Lit";
+        const string UnlitShader = "Universal Render Pipeline/Unlit";
+
+        static Material Grey(string name, Color color, string shaderName = LitShader)
         {
             string path = Folder + "/" + name + ".mat";
             var material = AssetDatabase.LoadAssetAtPath<Material>(path);
             if (material == null)
             {
-                Shader shader = Shader.Find("Universal Render Pipeline/Lit");
+                Shader shader = Shader.Find(shaderName);
                 material = new Material(shader) { name = name };
                 AssetDatabase.CreateAsset(material, path);
             }

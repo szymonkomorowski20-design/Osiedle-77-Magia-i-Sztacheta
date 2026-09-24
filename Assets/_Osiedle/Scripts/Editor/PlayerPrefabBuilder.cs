@@ -1,19 +1,24 @@
 using Osiedle.Combat;
+using Osiedle.Core;
 using Osiedle.Player;
 using Osiedle.UI;
 using Osiedle.Weapons;
+using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace Osiedle.Editor
 {
-    /// <summary>Prefab gracza (Kuba): ruch, celowanie, dash, walka wręcz, zasoby. Wspólny dla wszystkich scen testowych.</summary>
+    /// <summary>Prefab gracza (Kuba): ruch, celowanie, dash, sztacheta, proca, zasoby. Wspólny dla wszystkich scen testowych.</summary>
     public static class PlayerPrefabBuilder
     {
         public const string Path = BuilderUtils.Root + "/Prefabs/Player/Player.prefab";
 
+        // Wstrząs przy strzale: krótki „bump” (siłę daje broń, RangedWeaponData.shotShake).
+        const float ShakeDuration = 0.12f;
+
         public static GameObject Build(PlayerData data, InputActionAsset controls, BuilderMaterials materials,
-            MeleeWeaponData weapon, ScrapPickup scrapPrefab)
+            MeleeWeaponData weapon, RangedWeaponData rangedWeapon, ScrapPickup scrapPrefab, Projectile boltPrefab)
         {
             var root = new GameObject("Player");
 
@@ -73,7 +78,24 @@ namespace Osiedle.Editor
             var scrapSpawner = root.AddComponent<ScrapSpawner>();
             var melee = root.AddComponent<PlayerMelee>();
             var swing = root.AddComponent<MeleeSwingVisual>();
+            var projectiles = root.AddComponent<ProjectilePool>();
+            var ranged = root.AddComponent<PlayerRanged>();
+            var impulse = root.AddComponent<CinemachineImpulseSource>();
+            root.AddComponent<CameraShake>();
             var hud = root.AddComponent<DebugHud>();
+
+            impulse.ImpulseDefinition = new CinemachineImpulseDefinition
+            {
+                ImpulseChannel = 1,
+                ImpulseShape = CinemachineImpulseDefinition.ImpulseShapes.Bump,
+                CustomImpulseShape = new AnimationCurve(),
+                ImpulseDuration = ShakeDuration,
+                ImpulseType = CinemachineImpulseDefinition.ImpulseTypes.Uniform,
+                DissipationDistance = 100f,
+                DissipationRate = 0.25f,
+                PropagationSpeed = 343f,
+            };
+            impulse.DefaultVelocity = Vector3.down;
 
             BuilderUtils.Wire(input, ("actions", controls));
             BuilderUtils.Wire(motor, ("data", data), ("input", input));
@@ -87,7 +109,10 @@ namespace Osiedle.Editor
             BuilderUtils.Wire(melee, ("playerData", data), ("weapon", weapon), ("input", input), ("motor", motor),
                 ("dash", dash), ("resources", resources), ("hitbox", hitbox), ("scrapSpawner", scrapSpawner));
             BuilderUtils.Wire(swing, ("melee", melee), ("pivot", swingPivot.transform));
-            BuilderUtils.Wire(hud,("resources", resources), ("dash", dash), ("melee", melee));
+            BuilderUtils.Wire(projectiles, ("prefab", boltPrefab), ("owner", root));
+            BuilderUtils.Wire(ranged, ("playerData", data), ("weapon", rangedWeapon), ("input", input), ("aim", aim),
+                ("dash", dash), ("melee", melee), ("resources", resources), ("projectiles", projectiles));
+            BuilderUtils.Wire(hud, ("resources", resources), ("dash", dash), ("melee", melee));
 
             return BuilderUtils.SavePrefab(root, Path);
         }

@@ -371,6 +371,10 @@ GameObject:
   - component: {fileID: 8112167775610791512}
   - component: {fileID: 2216384235713902013}
   - component: {fileID: 3717482332121323603}
+  - component: {fileID: 3679213417500632744}
+  - component: {fileID: 7731099588415378631}
+  - component: {fileID: 1758524125229801821}
+  - component: {fileID: 5558619941410494189}
   - component: {fileID: 9108913994543263927}
   m_Layer: 0
   m_Name: Player
@@ -591,6 +595,109 @@ MonoBehaviour:
   m_EditorClassIdentifier: Osiedle.Runtime::Osiedle.Player.MeleeSwingVisual
   melee: {fileID: 2216384235713902013}
   pivot: {fileID: 3099040567544735369}
+--- !u!114 &3679213417500632744
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8915320328465753348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 507b7adacdc260b488094856408bb685, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Osiedle.Runtime::Osiedle.Weapons.ProjectilePool
+  prefab: {fileID: 8914875829963963397, guid: 2f578d1228e3a154d8f5a35fb6a985dc, type: 3}
+  owner: {fileID: 8915320328465753348}
+  hitMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  prewarmCount: 24
+--- !u!114 &7731099588415378631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8915320328465753348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac3411603f402dc468b196325687b355, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Osiedle.Runtime::Osiedle.Player.PlayerRanged
+  playerData: {fileID: 11400000, guid: 41289344b28d1244ab5f595c969be82a, type: 2}
+  weapon: {fileID: 11400000, guid: 2415b525a402e5c4c97841bbd7049daf, type: 2}
+  input: {fileID: 287964938688319846}
+  aim: {fileID: 2929017457515872840}
+  dash: {fileID: 617042787856859068}
+  melee: {fileID: 2216384235713902013}
+  resources: {fileID: 7083165135643230261}
+  projectiles: {fileID: 3679213417500632744}
+--- !u!114 &1758524125229801821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8915320328465753348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 180ecf9b41d478f468eb3e9083753217, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineImpulseSource
+  ImpulseDefinition:
+    ImpulseChannel: 1
+    ImpulseShape: 2
+    CustomImpulseShape:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    ImpulseDuration: 0.12
+    ImpulseType: 0
+    DissipationRate: 0.25
+    RawSignal: {fileID: 0}
+    AmplitudeGain: 1
+    FrequencyGain: 1
+    RepeatMode: 0
+    Randomize: 1
+    TimeEnvelope:
+      AttackShape:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      DecayShape:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      AttackTime: 0
+      SustainTime: 0.2
+      DecayTime: 0.7
+      ScaleWithImpact: 1
+      HoldForever: 0
+    ImpactRadius: 100
+    DirectionMode: 0
+    DissipationMode: 2
+    DissipationDistance: 100
+    PropagationSpeed: 343
+  DefaultVelocity: {x: 0, y: -1, z: 0}
+--- !u!114 &5558619941410494189
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8915320328465753348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f991e2f44bfb9b49970b0a36033d279, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Osiedle.Runtime::Osiedle.Core.CameraShake
 --- !u!114 &9108913994543263927
 MonoBehaviour:
   m_ObjectHideFlags: 0

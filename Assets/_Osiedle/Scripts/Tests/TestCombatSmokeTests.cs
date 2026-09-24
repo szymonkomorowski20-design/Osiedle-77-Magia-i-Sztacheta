@@ -78,6 +78,43 @@ namespace Osiedle.Tests
             yield return new ExitPlayMode();
         }
 
+        [UnityTest]
+        public IEnumerator SlingshotShotCostsScrapAndHitsDummy()
+        {
+            EditorSceneManager.OpenScene(ScenePath);
+            yield return new EnterPlayMode();
+
+            var ranged = Object.FindAnyObjectByType<PlayerRanged>();
+            Assert.IsNotNull(ranged, "Brak procy u gracza.");
+            var resources = ranged.GetComponent<PlayerResources>();
+            var aim = ranged.GetComponent<PlayerAim>();
+            var motor = ranged.GetComponent<PlayerMotor>();
+
+            Health target = FindDummy("Manekin_Srodek");
+            Assert.IsNotNull(target, "Brak środkowego manekina.");
+
+            // Gracz 5 m przed manekinem, celownik ustawiony ręcznie na manekina.
+            aim.enabled = false;
+            motor.Controller.enabled = false;
+            ranged.transform.SetPositionAndRotation(target.transform.position + Vector3.back * 5f, Quaternion.identity);
+            motor.Controller.enabled = true;
+            typeof(PlayerAim).GetProperty(nameof(PlayerAim.AimPoint))
+                .SetValue(aim, target.transform.position + Vector3.up * 0.75f);
+
+            yield return WaitSeconds(0.2f);
+
+            int startScrap = resources.Scrap;
+            float startHealth = target.Current;
+            ranged.RequestShot();
+            yield return WaitSeconds(0.6f);
+
+            Assert.AreEqual(startScrap - ranged.Weapon.scrapCost, resources.Scrap, "Strzał powinien kosztować Złom.");
+            Assert.AreEqual(startHealth - ranged.Weapon.damage, target.Current, Tolerance, "Śruba powinna trafić manekina.");
+            Assert.Greater(resources.Power, 0f, "Trafienie z procy powinno ładować Moc.");
+
+            yield return new ExitPlayMode();
+        }
+
         static Health FindDummy(string name)
         {
             foreach (var dummy in Object.FindObjectsByType<TrainingDummy>())

@@ -33,10 +33,15 @@ namespace Osiedle.Editor
             BuilderUtils.Block("Garaz_Wolnostojacy", new Vector3(-6f, FacadeGarages * 0.5f, -3f),
                 new Vector3(3f, FacadeGarages, 4f), assets.Materials.Wall, level);
 
+            // Podest (dach Kurdupla / skrzynie): wskocz dashem i strzelaj z góry (+20% obrażeń procy).
+            SceneKit.VaultBlock("Podest", new Vector3(5.5f, 0.6f, -4f), new Vector3(3f, 1.2f, 3f), assets.Materials, level);
+
             var dummies = new GameObject("Manekiny").transform;
             Dummy(assets, dummies, "Manekin_Srodek", new Vector3(0f, 0f, 3f));
             Dummy(assets, dummies, "Manekin_Lewy", new Vector3(-3.5f, 0f, 4.5f));
             Dummy(assets, dummies, "Manekin_Prawy", new Vector3(3.5f, 0f, 4.5f));
+            // Daleki cel dla procy, pod ścianą bloku (strzały odbite od ściany też go trafiają).
+            Dummy(assets, dummies, "Manekin_Daleki", new Vector3(-6f, 0f, 8.5f));
 
             GameObject player = SceneKit.Player(scene, assets, new Vector3(0f, 0f, -2f));
             SceneKit.CameraRig(assets.PlayerData, player);

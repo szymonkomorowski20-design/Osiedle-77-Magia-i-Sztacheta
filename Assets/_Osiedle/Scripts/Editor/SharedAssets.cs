@@ -15,6 +15,7 @@ namespace Osiedle.Editor
         public InputActionAsset Controls;
         public BuilderMaterials Materials;
         public MeleeWeaponData Sztacheta;
+        public RangedWeaponData Proca;
         public EnemyData DummyData;
         public GameObject PlayerPrefab;
         public GameObject DummyPrefab;
@@ -27,12 +28,14 @@ namespace Osiedle.Editor
                 Controls = InputControlsBuilder.Build(),
                 Materials = BuilderMaterials.Build(),
                 Sztacheta = CombatAssetsBuilder.Sztacheta(),
+                Proca = CombatAssetsBuilder.Proca(),
                 DummyData = CombatAssetsBuilder.DummyData(),
             };
 
             var scrapPrefab = CombatAssetsBuilder.ScrapPrefab(assets.Materials);
+            var boltPrefab = CombatAssetsBuilder.BoltPrefab(assets.Materials);
             assets.PlayerPrefab = PlayerPrefabBuilder.Build(assets.PlayerData, assets.Controls, assets.Materials,
-                assets.Sztacheta, scrapPrefab);
+                assets.Sztacheta, assets.Proca, scrapPrefab, boltPrefab);
             assets.DummyPrefab = CombatAssetsBuilder.DummyPrefab(assets.DummyData, assets.Materials);
             return assets;
         }
