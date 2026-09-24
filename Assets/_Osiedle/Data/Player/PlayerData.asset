@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fda36ef4e9206cb4088a1711f6ff643f, type: 3}
+  m_Name: PlayerData
+  m_EditorClassIdentifier: Osiedle.Runtime::Osiedle.Player.PlayerData
+  moveSpeed: 6
+  gravity: 30
+  maxFallSpeed: 25
+  groundStickSpeed: 2
+  coyoteTime: 0.1
+  hipHeight: 0.75
+  dashDistance: 4
+  dashDuration: 0.18
+  dashCooldown: 0.8
+  dashCharges: 1
+  dashInvulnerability: 0.3
+  inputBufferTime: 0.15
+  vaultDetectDistance: 1.2
+  vaultProbeHeight: 0.2
+  vaultProbeRadius: 0.15
+  vaultMinHeight: 0.3
+  vaultMaxHeight: 2.2
+  vaultDuration: 0.35
+  vaultArcHeight: 0.5
+  vaultLandingInset: 0.5
+  vaultPromptRadius: 1.8
+  vaultPromptHeight: 0.4
+  cameraPitch: 55
+  cameraDistance: 16
+  cameraFieldOfView: 40
+  cameraDamping: 0.2
+  lookAheadMax: 3
+  lookAheadFactor: 0.35
+  lookAheadSmoothTime: 0.15
