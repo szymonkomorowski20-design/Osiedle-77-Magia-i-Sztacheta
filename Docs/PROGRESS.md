@@ -19,8 +19,12 @@ Claude dopisuje tu wpis na końcu każdego etapu. Najnowszy wpis na górze.
   - Poprawione ostrzeżenie o przestarzałym `FindObjectsSortMode` w teście. Testy 40/40.
 - Znane błędy:
   - Ściany przed postacią (od strony kamery) zasłaniają ją — półprzezroczystość ścian wciąż odłożona.
-- Odłożone na później:
-  - Porządki zgodności z CLAUDE.md (lista przedstawiona autorowi, czeka na decyzję).
+- Porządki zgodności z CLAUDE.md (po akceptacji autora):
+  - CLAUDE.md: w strukturze dopisane `Data/Player`, `Data/Input`, `Prefabs/Pickups`.
+  - Rozmiary ciał przeniesione do danych: `PlayerData` (bodyHeight, bodyRadius, stepOffset), `EnemyData` (bodyHeight, bodyRadius). Zmiana wymaga ponownego zbudowania sceny.
+  - Rozrzut śrubek: `PlayerData.scrapScatterMinFraction` zamiast stałej w kodzie.
+  - Bez zmian (decyzja): pola manekina w `EnemyData` z nagłówkiem, `DebugHud` jako tymczasowe narzędzie.
+- Do decyzji autora: czy Unity 6000.6.2f1 to wersja LTS (CLAUDE.md wymaga LTS).
 
 ### 2026-09-24 — M1 Sztacheta i manekin
 - Działa:

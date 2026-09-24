@@ -8,6 +8,13 @@ namespace Osiedle.Enemies
     [CreateAssetMenu(fileName = "EnemyData", menuName = "Osiedle/Dane/Wróg")]
     public class EnemyData : ScriptableObject
     {
+        [Header("Ciało (zmiana wymaga ponownego zbudowania sceny: Osiedle/Build/...)")]
+        [Tooltip("Wysokość kapsuły kolizji (m).")]
+        [Min(0.3f)] public float bodyHeight = 1.6f;
+
+        [Tooltip("Promień kapsuły kolizji (m). Większy = łatwiej trafić.")]
+        [Min(0.1f)] public float bodyRadius = 0.4f;
+
         [Header("Zdrowie")]
         [Min(1f)] public float maxHealth = 300f;
 

@@ -12,31 +12,30 @@ namespace Osiedle.Editor
     {
         public const string Path = BuilderUtils.Root + "/Prefabs/Player/Player.prefab";
 
-        // Wymiary ciała Kuby (12 lat) — kształt postaci, nie balans.
-        const float Height = 1.4f;
-        const float Radius = 0.35f;
-        const float StepOffset = 0.3f;
-
         public static GameObject Build(PlayerData data, InputActionAsset controls, BuilderMaterials materials,
             MeleeWeaponData weapon, ScrapPickup scrapPrefab)
         {
             var root = new GameObject("Player");
 
+            // Wymiary ciała z PlayerData (sekcja Ciało).
+            float height = data.bodyHeight;
+            float radius = data.bodyRadius;
+
             var controller = root.AddComponent<CharacterController>();
-            controller.height = Height;
-            controller.radius = Radius;
-            controller.center = new Vector3(0f, Height * 0.5f, 0f);
-            controller.stepOffset = StepOffset;
+            controller.height = height;
+            controller.radius = radius;
+            controller.center = new Vector3(0f, height * 0.5f, 0f);
+            controller.stepOffset = Mathf.Min(data.stepOffset, height);
             // 0 = kontroler nie ignoruje małych ruchów (przy wysokim FPS docisk do ziemi jest bardzo mały).
             controller.minMoveDistance = 0f;
 
             // Wygląd: kapsuła + "twarz", żeby było widać, gdzie postać patrzy.
             var body = BuilderUtils.Visual(PrimitiveType.Capsule, "Body", root.transform, materials.Player);
-            body.transform.localPosition = new Vector3(0f, Height * 0.5f, 0f);
-            body.transform.localScale = new Vector3(Radius * 2f, Height * 0.5f, Radius * 2f);
+            body.transform.localPosition = new Vector3(0f, height * 0.5f, 0f);
+            body.transform.localScale = new Vector3(radius * 2f, height * 0.5f, radius * 2f);
 
             var face = BuilderUtils.Visual(PrimitiveType.Cube, "Face", root.transform, materials.PlayerFace);
-            face.transform.localPosition = new Vector3(0f, Height * 0.75f, Radius);
+            face.transform.localPosition = new Vector3(0f, height * 0.75f, radius);
             face.transform.localScale = new Vector3(0.3f, 0.12f, 0.12f);
 
             // Strzałka nad krawędzią obiektu do wskoczenia (włączana przez VaultPrompt).

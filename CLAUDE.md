@@ -29,8 +29,9 @@ Assets/_Osiedle/
       Core/ Player/ Combat/ Weapons/ Enemies/ Bosses/ Upgrades/ Rooms/ Meta/ UI/ Audio/
     Editor/    (asmdef Osiedle.Editor, tylko edytor)
     Tests/     (asmdef Osiedle.Tests)
-  Data/        ScriptableObjecty: Weapons, Enemies, Upgrades, Suppliers, Acts, Rooms, Jars, Texts_PL
-  Prefabs/     Player, Enemies, Bosses, Projectiles, Rooms, UI
+  Data/        ScriptableObjecty: Player, Weapons, Enemies, Upgrades, Suppliers, Acts, Rooms, Jars, Texts_PL;
+               Input (mapa klawiszy OsiedleControls)
+  Prefabs/     Player, Enemies, Bosses, Projectiles, Pickups, Rooms, UI
   Scenes/      Boot, Hub, Run, Test_*
   Art/  Audio/
 Docs/          GDD.md, PROGRESS.md, CREDITS.md

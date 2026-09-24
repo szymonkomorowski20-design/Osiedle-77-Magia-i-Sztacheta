@@ -11,8 +11,6 @@ namespace Osiedle.Combat
     /// </summary>
     public class ScrapSpawner : MonoBehaviour
     {
-        const float MinScatterFraction = 0.5f;
-
         [SerializeField] PlayerData data;
         [SerializeField] PlayerResources resources;
         [SerializeField] ScrapPickup pickupPrefab;
@@ -48,7 +46,7 @@ namespace Osiedle.Combat
 
             for (int i = 0; i < count; i++)
             {
-                Vector2 flat = Random.insideUnitCircle.normalized * (data.scrapScatterSpeed * Random.Range(MinScatterFraction, 1f));
+                Vector2 flat = Random.insideUnitCircle.normalized * (data.scrapScatterSpeed * Random.Range(data.scrapScatterMinFraction, 1f));
                 var velocity = new Vector3(flat.x, data.scrapScatterUpSpeed, flat.y);
                 pool.Get().Launch(this, point, velocity, groundHeight);
             }

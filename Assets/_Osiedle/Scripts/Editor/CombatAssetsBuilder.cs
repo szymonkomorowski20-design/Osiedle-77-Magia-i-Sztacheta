@@ -13,10 +13,6 @@ namespace Osiedle.Editor
         public const string ScrapPrefabPath = BuilderUtils.Root + "/Prefabs/Pickups/Scrap.prefab";
         public const string DummyPrefabPath = BuilderUtils.Root + "/Prefabs/Enemies/TrainingDummy.prefab";
 
-        // Kształt manekina (worek na kiju) — wygląd, nie balans.
-        const float DummyHeight = 1.6f;
-        const float DummyRadius = 0.4f;
-
         public static MeleeWeaponData Sztacheta() => BuilderUtils.LoadOrCreateData<MeleeWeaponData>(SztachetaPath);
 
         public static EnemyData DummyData() => BuilderUtils.LoadOrCreateData<EnemyData>(DummyDataPath);
@@ -41,18 +37,25 @@ namespace Osiedle.Editor
         {
             var root = new GameObject("TrainingDummy");
 
+            // Wymiary ciała z EnemyData (sekcja Ciało).
+            float height = data.bodyHeight;
+            float radius = data.bodyRadius;
+
             var controller = root.AddComponent<CharacterController>();
-            controller.height = DummyHeight;
-            controller.radius = DummyRadius;
-            controller.center = new Vector3(0f, DummyHeight * 0.5f, 0f);
+            controller.height = height;
+            controller.radius = radius;
+            controller.center = new Vector3(0f, height * 0.5f, 0f);
             controller.minMoveDistance = 0f;
 
+            // Wygląd w proporcjach do wysokości: worek na dole 3/4, głowa na górze.
+            float sackHeight = height * 0.75f;
             var body = BuilderUtils.Visual(PrimitiveType.Cylinder, "Worek", root.transform, materials.Dummy);
-            body.transform.localPosition = new Vector3(0f, 0.6f, 0f);
-            body.transform.localScale = new Vector3(DummyRadius * 2f, 0.6f, DummyRadius * 2f);
+            body.transform.localPosition = new Vector3(0f, sackHeight * 0.5f, 0f);
+            body.transform.localScale = new Vector3(radius * 2f, sackHeight * 0.5f, radius * 2f);
+            float headSize = height - sackHeight + radius * 0.25f;
             var head = BuilderUtils.Visual(PrimitiveType.Sphere, "Glowa", root.transform, materials.Dummy);
-            head.transform.localPosition = new Vector3(0f, 1.4f, 0f);
-            head.transform.localScale = Vector3.one * 0.45f;
+            head.transform.localPosition = new Vector3(0f, height - headSize * 0.5f, 0f);
+            head.transform.localScale = Vector3.one * headSize;
 
             var health = root.AddComponent<Health>();
             var knockback = root.AddComponent<Knockback>();

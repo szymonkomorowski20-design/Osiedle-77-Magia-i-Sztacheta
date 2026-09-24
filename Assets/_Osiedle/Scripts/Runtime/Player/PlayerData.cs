@@ -25,6 +25,16 @@ namespace Osiedle.Player
         [Tooltip("Coyote time (s): tyle po zejściu z krawędzi postać jeszcze nie spada.")]
         [Min(0f)] public float coyoteTime = 0.1f;
 
+        [Header("Ciało (zmiana wymaga ponownego zbudowania sceny: Osiedle/Build/...)")]
+        [Tooltip("Wzrost Kuby (m). Wysokość kapsuły kolizji.")]
+        [Min(0.5f)] public float bodyHeight = 1.4f;
+
+        [Tooltip("Promień kapsuły kolizji (m). Większy = łatwiej trafić Kubę i trudniej przejść wąsko.")]
+        [Min(0.1f)] public float bodyRadius = 0.35f;
+
+        [Tooltip("Najwyższy stopień (m), na który Kuba wchodzi bez skoku.")]
+        [Min(0f)] public float stepOffset = 0.3f;
+
         [Header("Zdrowie")]
         [Tooltip("Maksymalne zdrowie (5 butelek oranżady po 20).")]
         [Min(1f)] public float maxHealth = 100f;
@@ -57,6 +67,9 @@ namespace Osiedle.Player
 
         [Tooltip("Prędkość rozrzutu śrubek na boki przy wybiciu (m/s).")]
         [Min(0f)] public float scrapScatterSpeed = 3f;
+
+        [Tooltip("Najsłabszy rozrzut jako część scrapScatterSpeed (0..1). Mniej = śrubki bardziej rozrzucone po odległości.")]
+        [Range(0f, 1f)] public float scrapScatterMinFraction = 0.5f;
 
         [Tooltip("Prędkość wyrzutu śrubek w górę przy wybiciu (m/s).")]
         [Min(0f)] public float scrapScatterUpSpeed = 4f;
