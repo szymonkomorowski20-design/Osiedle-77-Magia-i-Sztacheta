@@ -122,14 +122,14 @@ namespace Osiedle.Player
         [Min(0f)] public float vaultPromptHeight = 0.4f;
 
         [Header("Kamera")]
-        [Tooltip("Kąt patrzenia kamery w dół (stopnie).")]
-        [Range(20f, 89f)] public float cameraPitch = 55f;
+        [Tooltip("Kąt patrzenia kamery w dół (stopnie). Mniej = bardziej z boku, widać więcej fasad.")]
+        [Range(20f, 89f)] public float cameraPitch = 50f;
 
-        [Tooltip("Odległość kamery od postaci (m).")]
-        [Min(1f)] public float cameraDistance = 16f;
+        [Tooltip("Odległość kamery od postaci (m). 14,3 m przy 50° i FOV 35° = postać ok. 1/10 wysokości ekranu.")]
+        [Min(1f)] public float cameraDistance = 14.3f;
 
-        [Tooltip("Pole widzenia kamery (stopnie).")]
-        [Range(10f, 90f)] public float cameraFieldOfView = 40f;
+        [Tooltip("Pionowe pole widzenia kamery (stopnie). Mniej = mniej zniekształceń perspektywy.")]
+        [Range(10f, 90f)] public float cameraFieldOfView = 35f;
 
         [Tooltip("Wygładzenie ruchu kamery (s). 0 = sztywno.")]
         [Min(0f)] public float cameraDamping = 0.2f;

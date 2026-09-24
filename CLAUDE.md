@@ -59,6 +59,7 @@ Docs/          GDD.md, PROGRESS.md, CREDITS.md
 - Kolory magii (fiolet, zieleń kwasu, pomarańcz ognia, błękit prądu) nigdy na otoczeniu.
 - Żaden atak wroga nie trafia bez ostrzeżenia.
 - Do etapu M10 grafika to szare bryły. Nie dodawaj modeli ani efektów „na zapas”.
+- Wzorzec wyglądu: Docs/Concept/wzorzec_walka.png. Grafikę robimy dopiero od M10, do tego czasu tylko szare bryły.
 
 ## Nazwy w grze
 

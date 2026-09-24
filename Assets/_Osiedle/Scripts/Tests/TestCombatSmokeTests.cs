@@ -68,7 +68,7 @@ namespace Osiedle.Tests
 
         static Health FindDummy(string name)
         {
-            foreach (var dummy in Object.FindObjectsByType<TrainingDummy>(FindObjectsSortMode.None))
+            foreach (var dummy in Object.FindObjectsByType<TrainingDummy>())
                 if (dummy.name == name) return dummy.GetComponent<Health>();
             return null;
         }

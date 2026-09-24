@@ -10,6 +10,18 @@ Claude dopisuje tu wpis na końcu każdego etapu. Najnowszy wpis na górze.
 
 ## Dziennik
 
+### 2026-09-24 — M1 (dodatek) Kamera 50° i wzorzec wyglądu
+- Działa:
+  - Kamera: kąt 50° (było 55°), FOV 35° (było 40°), odległość 14,3 m — postać zajmuje ok. 1/10 wysokości ekranu. Dalej bez obrotu i z wyprzedzeniem w stronę kursora. Wszystko w `PlayerData` (sekcja Kamera).
+  - Nowe menu `Osiedle/Dane/Kamera — przywróć wartości domyślne` (budowniczy nie nadpisuje strojenia, więc nowe wartości wgrywa się tym menu). Wgrane do obecnego `PlayerData`.
+  - Test_Combat: wysokie ściany — północ 4 m (blok), wschód 3 m (garaże), zachód 3,5 m (pawilon) i wolnostojący garaż 3 m; południe zostaje niskie, żeby nie zasłaniać gracza.
+  - Wzorzec wyglądu `Docs/Concept/wzorzec_walka.png` (skopiowany z pobranego „Obraz Codex 24 wrz 2026, 16_50_33.png”); GDD sekcja 10 „Wzorzec wyglądu”, sekcja 3 kamera 50°; CLAUDE.md — linia o wzorcu.
+  - Poprawione ostrzeżenie o przestarzałym `FindObjectsSortMode` w teście. Testy 40/40.
+- Znane błędy:
+  - Ściany przed postacią (od strony kamery) zasłaniają ją — półprzezroczystość ścian wciąż odłożona.
+- Odłożone na później:
+  - Porządki zgodności z CLAUDE.md (lista przedstawiona autorowi, czeka na decyzję).
+
 ### 2026-09-24 — M1 Sztacheta i manekin
 - Działa:
   - Walka: `DamageInfo`, `Element`, `Hitbox` (łuk przed postacią, każdy cel raz na cios), `Hurtbox` (filtry `IDamageFilter`, odrzut, `GameEvents.OnHit`), `Health` + czysta logika `HealthPool`, `Knockback`, `HitStop`.

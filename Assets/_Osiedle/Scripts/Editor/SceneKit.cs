@@ -29,20 +29,32 @@ namespace Osiedle.Editor
             return scene;
         }
 
-        /// <summary>Kwadratowa arena: podłoga o boku <paramref name="size"/> m i ściany dookoła.</summary>
-        public static Transform Arena(float size, BuilderMaterials materials)
+        /// <summary>
+        /// Kwadratowa arena: podłoga o boku <paramref name="size"/> m i ściany dookoła.
+        /// Wysokość każdej ściany można podać osobno (0 lub mniej = domyślna, niska).
+        /// Kamera patrzy na północ (+Z), więc wysokie ściany N/E/W pokazują fasady, a wysoka ściana S zasłoniłaby gracza.
+        /// </summary>
+        public static Transform Arena(float size, BuilderMaterials materials,
+            float north = 0f, float east = 0f, float south = 0f, float west = 0f)
         {
             var level = new GameObject("Level").transform;
             float half = size * 0.5f;
             float wallCenter = half + WallThickness * 0.5f;
-            float wallY = WallHeight * 0.5f;
+            float span = size + 2f * WallThickness;
 
             BuilderUtils.Block("Floor", new Vector3(0f, -0.5f, 0f), new Vector3(size, 1f, size), materials.Floor, level);
-            BuilderUtils.Block("Wall_N", new Vector3(0f, wallY, wallCenter), new Vector3(size + 2f * WallThickness, WallHeight, WallThickness), materials.Wall, level);
-            BuilderUtils.Block("Wall_S", new Vector3(0f, wallY, -wallCenter), new Vector3(size + 2f * WallThickness, WallHeight, WallThickness), materials.Wall, level);
-            BuilderUtils.Block("Wall_E", new Vector3(wallCenter, wallY, 0f), new Vector3(WallThickness, WallHeight, size), materials.Wall, level);
-            BuilderUtils.Block("Wall_W", new Vector3(-wallCenter, wallY, 0f), new Vector3(WallThickness, WallHeight, size), materials.Wall, level);
+            Wall(level, materials, "Wall_N", new Vector3(0f, 0f, wallCenter), new Vector2(span, WallThickness), north);
+            Wall(level, materials, "Wall_S", new Vector3(0f, 0f, -wallCenter), new Vector2(span, WallThickness), south);
+            Wall(level, materials, "Wall_E", new Vector3(wallCenter, 0f, 0f), new Vector2(WallThickness, size), east);
+            Wall(level, materials, "Wall_W", new Vector3(-wallCenter, 0f, 0f), new Vector2(WallThickness, size), west);
             return level;
+        }
+
+        static void Wall(Transform level, BuilderMaterials materials, string name, Vector3 foot, Vector2 footprint, float height)
+        {
+            if (height <= 0f) height = WallHeight;
+            var center = new Vector3(foot.x, height * 0.5f, foot.z);
+            BuilderUtils.Block(name, center, new Vector3(footprint.x, height, footprint.y), materials.Wall, level);
         }
 
         public static GameObject Player(Scene scene, SharedAssets assets, Vector3 position)

@@ -17,6 +17,19 @@ MonoBehaviour:
   maxFallSpeed: 25
   groundStickSpeed: 2
   coyoteTime: 0.1
+  maxHealth: 100
+  hitInvulnerability: 0.8
+  maxScrap: 30
+  startScrap: 10
+  maxPower: 100
+  scrapMagnetRadius: 3.5
+  scrapMagnetSpeed: 14
+  scrapMagnetDelay: 0.3
+  scrapCollectDistance: 0.5
+  scrapScatterSpeed: 3
+  scrapScatterUpSpeed: 4
+  scrapGravity: 20
+  scrapPoolSize: 32
   hipHeight: 0.75
   dashDistance: 4
   dashDuration: 0.18
@@ -34,9 +47,9 @@ MonoBehaviour:
   vaultLandingInset: 0.5
   vaultPromptRadius: 1.8
   vaultPromptHeight: 0.4
-  cameraPitch: 55
-  cameraDistance: 16
-  cameraFieldOfView: 40
+  cameraPitch: 50
+  cameraDistance: 14.3
+  cameraFieldOfView: 35
   cameraDamping: 0.2
   lookAheadMax: 3
   lookAheadFactor: 0.35

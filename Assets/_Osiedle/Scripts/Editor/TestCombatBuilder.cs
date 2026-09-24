@@ -14,6 +14,11 @@ namespace Osiedle.Editor
         public const string ScenePath = BuilderUtils.Root + "/Scenes/Test_Combat.unity";
         const float ArenaSize = 20f;
 
+        // Wysokie ściany do oceny kamery: czy widać fasady jak na wzorcu (Docs/Concept/wzorzec_walka.png).
+        const float FacadeBlock = 4f;     // północ: ściana bloku
+        const float FacadeGarages = 3f;   // wschód: rząd garaży
+        const float FacadeWest = 3.5f;    // zachód: pawilon
+
         [MenuItem("Osiedle/Build/Test_Combat")]
         public static void Build()
         {
@@ -21,7 +26,12 @@ namespace Osiedle.Editor
 
             SharedAssets assets = SharedAssets.Build();
             var scene = SceneKit.NewScene();
-            SceneKit.Arena(ArenaSize, assets.Materials);
+            Transform level = SceneKit.Arena(ArenaSize, assets.Materials,
+                north: FacadeBlock, east: FacadeGarages, west: FacadeWest);
+
+            // Wolnostojący garaż 3 m w środku areny: widać jego fasadę i to, czy zasłania postać za nim.
+            BuilderUtils.Block("Garaz_Wolnostojacy", new Vector3(-6f, FacadeGarages * 0.5f, -3f),
+                new Vector3(3f, FacadeGarages, 4f), assets.Materials.Wall, level);
 
             var dummies = new GameObject("Manekiny").transform;
             Dummy(assets, dummies, "Manekin_Srodek", new Vector3(0f, 0f, 3f));
