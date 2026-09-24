@@ -1,3 +1,4 @@
+using Osiedle.Combat;
 using Osiedle.Core;
 using UnityEngine;
 
@@ -10,7 +11,7 @@ namespace Osiedle.Player
     /// </summary>
     [RequireComponent(typeof(PlayerMotor))]
     [DefaultExecutionOrder(0)]
-    public class PlayerDash : MonoBehaviour
+    public class PlayerDash : MonoBehaviour, IDamageFilter
     {
         const float MinDirectionSqr = 0.01f;
         const float LandingClearance = 0.05f;
@@ -41,6 +42,9 @@ namespace Osiedle.Player
         public bool IsBusy => state != State.Ready;
 
         public DashCharges Charges => charges;
+
+        /// <summary>W trakcie nietykalności dasha żadne trafienie nie przechodzi.</summary>
+        public bool BlocksDamage(in DamageInfo info) => IsInvulnerable;
 
         void Awake()
         {

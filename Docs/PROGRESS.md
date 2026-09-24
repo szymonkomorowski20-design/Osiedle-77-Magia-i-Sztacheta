@@ -4,10 +4,32 @@ Claude dopisuje tu wpis na końcu każdego etapu. Najnowszy wpis na górze.
 
 ## Stan obecny
 
-- Etap: M0 „Ruch i kamera” ukończony, sprawdzony ręcznie, scalony do `main` (tag `m0`).
-- Następny krok: M1 — walka wręcz z manekinem (Hitbox/Hurtbox/Health/DamageInfo, Złom, hit-stop).
+- Etap: M1 „Sztacheta i manekin” gotowy na gałęzi `m1-sztacheta`, czeka na test ręczny i scalenie do `main`.
+- Następny krok: M2 — proca na śruby (strzał za Złom, pociski z puli, odbicie od ściany).
+- Kolejność ustalona z autorem: M2 = proca, M3 = pierwsi wrogowie z telegrafami.
 
 ## Dziennik
+
+### 2026-09-24 — M1 Sztacheta i manekin
+- Działa:
+  - Walka: `DamageInfo`, `Element`, `Hitbox` (łuk przed postacią, każdy cel raz na cios), `Hurtbox` (filtry `IDamageFilter`, odrzut, `GameEvents.OnHit`), `Health` + czysta logika `HealthPool`, `Knockback`, `HitStop`.
+  - Sztacheta (`Data/Weapons/Sztacheta`): 30 obrażeń, seria 3 ciosów (trzeci x1,5, najmocniejszy odrzut 14 m/s, hit-stop 0,08 s), łuk 120°, zasięg 2 m, wolniejszy ruch w trakcie ciosu, krok do przodu.
+  - `PlayerMelee`: PPM z buforem wejścia, okno serii 0,5 s, dash przerywa cios.
+  - Złom i Moc (`PlayerResources` + `ResourcePool`): trafienie wybija 1–3 śrubki z puli (`ScrapSpawner`, `ObjectPool`), śrubki same lecą do gracza (nie, gdy Złom pełny); +4 Mocy za trafienie. Start: 10/30 Złomu.
+  - Nietykalność dasha działa jako filtr obrażeń gracza. Gracz ma Health (100) i nieśmiertelność po trafieniu 0,8 s (na razie nic go nie bije).
+  - Manekin (`Data/Enemies/Manekin`, `TrainingDummy`): 300 HP, biały błysk, odrzut, leczenie po 2 s spokoju, wstaje 1 s po „śmierci”.
+  - `DebugHud` (tymczasowy, lewy górny róg): HP, Złom, Moc, dash, numer ciosu.
+  - Nowe zdarzenia: `OnHit`, `OnKill`, `OnDamageTaken`, `OnScrapChanged`, `OnPowerChanged`.
+  - Budowniczy rozbity na wspólne części (`SharedAssets`, `PlayerPrefabBuilder`, `CombatAssetsBuilder`, `SceneKit`, `InputControlsBuilder`, `BuilderMaterials`, `BuilderUtils`). Nowe menu `Osiedle/Build/Test_Combat`.
+  - Testy: 40/40 (m.in. HealthPool, ComboCounter, ResourcePool, ScrapRoll, test dymny Test_Combat).
+- Znane błędy:
+  - Budowniczy i testy w trybie wsadowym działają tylko przy zamkniętym edytorze Unity.
+  - DebugHud ma teksty w kodzie (tymczasowo, do czasu prawdziwego HUD-u z Texts_PL).
+- Odłożone na później:
+  - Wstrząs ekranu (Cinemachine Impulse), dźwięki trafień, efekty.
+  - Rozbijanie tarcz 3. ciosem (przy Milicjancie), krytyki, pozostałe bronie białe.
+  - Czar na Q (Moc już się ładuje).
+- Tag git: brak (po akceptacji: `m1`).
 
 ### 2026-09-24 — M0 Ruch i kamera
 - Zakres ustalony z GDD (sekcja 3 i 13), bo zakładka „Plan produkcji” nie była dostępna.
