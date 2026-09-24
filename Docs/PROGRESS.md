@@ -4,7 +4,7 @@ Claude dopisuje tu wpis na końcu każdego etapu. Najnowszy wpis na górze.
 
 ## Stan obecny
 
-- Etap: M0 „Ruch i kamera” gotowy na gałęzi `m0-ruch`, czeka na test ręczny i scalenie do `main`.
+- Etap: M0 „Ruch i kamera” ukończony, sprawdzony ręcznie, scalony do `main` (tag `m0`).
 - Następny krok: M1 — walka wręcz z manekinem (Hitbox/Hurtbox/Health/DamageInfo, Złom, hit-stop).
 
 ## Dziennik
@@ -22,13 +22,13 @@ Claude dopisuje tu wpis na końcu każdego etapu. Najnowszy wpis na górze.
   - `GameEvents.OnDash`, `GameEvents.OnVault`; logi `[Osiedle]`.
   - Testy: 16/16 (DashCharges, InputBuffer, test dymny sceny: dash ~4 m i skok na skrzynię).
 - Znane błędy:
-  - Nie sprawdzone ręcznie „na czucie” — wymaga zagrania w edytorze.
   - Ponowne zbudowanie sceny zmienia wewnętrzne ID obiektów w pliku .unity (duży diff w git, zachowanie bez zmian).
 - Odłożone na później:
   - Półprzezroczyste ściany zasłaniające postać.
   - Sterowanie padem, perfekcyjny dash (M1+, potrzebuje ataków wroga), +20% obrażeń procy z podwyższenia.
   - Łuk ładowania dasha pod postacią (UI).
-- Tag git: brak (po akceptacji: `m0`).
+- Test ręczny (2026-09-24): autor zagrał w Test_Movement — wszystko w porządku.
+- Tag git: `m0`.
 
 <!-- Szablon wpisu:
 ### RRRR-MM-DD — M? nazwa etapu
