@@ -28,6 +28,7 @@ namespace Osiedle.Player
         InputAction move;
         InputAction aim;
         InputAction dash;
+        InputAction melee;
 
         /// <summary>Kierunek ruchu z klawiatury (WASD), długość 0..1.</summary>
         public Vector2 Move => move != null ? move.ReadValue<Vector2>() : Vector2.zero;
@@ -36,6 +37,7 @@ namespace Osiedle.Player
         public Vector2 PointerScreenPosition => aim != null ? aim.ReadValue<Vector2>() : Vector2.zero;
 
         public event Action DashPressed;
+        public event Action MeleePressed;
 
         void Awake()
         {
@@ -50,12 +52,14 @@ namespace Osiedle.Player
             move = map.FindAction(MoveAction, true);
             aim = map.FindAction(AimAction, true);
             dash = map.FindAction(DashAction, true);
+            melee = map.FindAction(MeleeAction, true);
         }
 
         void OnEnable()
         {
             if (map == null) return;
             dash.performed += HandleDash;
+            melee.performed += HandleMelee;
             map.Enable();
         }
 
@@ -63,9 +67,11 @@ namespace Osiedle.Player
         {
             if (map == null) return;
             dash.performed -= HandleDash;
+            melee.performed -= HandleMelee;
             map.Disable();
         }
 
         void HandleDash(InputAction.CallbackContext context) => DashPressed?.Invoke();
+        void HandleMelee(InputAction.CallbackContext context) => MeleePressed?.Invoke();
     }
 }

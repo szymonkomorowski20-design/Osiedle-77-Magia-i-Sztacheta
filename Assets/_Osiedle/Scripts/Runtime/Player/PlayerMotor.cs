@@ -25,6 +25,9 @@ namespace Osiedle.Player
         public CharacterController Controller => controller;
         public bool IsGrounded { get; private set; }
 
+        /// <summary>Mnożnik prędkości biegu (np. wolniej w trakcie ciosu). 1 = normalnie.</summary>
+        public float SpeedMultiplier { get; set; } = 1f;
+
         /// <summary>Kierunek ruchu z wejścia w świecie, względem kamery (płaski, długość 0..1).</summary>
         public Vector3 MoveDirection { get; private set; }
 
@@ -70,7 +73,7 @@ namespace Osiedle.Player
                 verticalSpeed = Mathf.Max(verticalSpeed - data.gravity * Time.deltaTime, -data.maxFallSpeed);
             }
 
-            Vector3 velocity = MoveDirection * data.moveSpeed;
+            Vector3 velocity = MoveDirection * (data.moveSpeed * SpeedMultiplier);
             velocity.y = verticalSpeed;
             controller.Move(velocity * Time.deltaTime);
 

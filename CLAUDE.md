@@ -29,8 +29,9 @@ Assets/_Osiedle/
       Core/ Player/ Combat/ Weapons/ Enemies/ Bosses/ Upgrades/ Rooms/ Meta/ UI/ Audio/
     Editor/    (asmdef Osiedle.Editor, tylko edytor)
     Tests/     (asmdef Osiedle.Tests)
-  Data/        ScriptableObjecty: Weapons, Enemies, Upgrades, Suppliers, Acts, Rooms, Jars, Texts_PL
-  Prefabs/     Player, Enemies, Bosses, Projectiles, Rooms, UI
+  Data/        ScriptableObjecty: Player, Weapons, Enemies, Upgrades, Suppliers, Acts, Rooms, Jars, Texts_PL;
+               Input (mapa klawiszy OsiedleControls)
+  Prefabs/     Player, Enemies, Bosses, Projectiles, Pickups, Rooms, UI
   Scenes/      Boot, Hub, Run, Test_*
   Art/  Audio/
 Docs/          GDD.md, PROGRESS.md, CREDITS.md
@@ -59,6 +60,7 @@ Docs/          GDD.md, PROGRESS.md, CREDITS.md
 - Kolory magii (fiolet, zieleń kwasu, pomarańcz ognia, błękit prądu) nigdy na otoczeniu.
 - Żaden atak wroga nie trafia bez ostrzeżenia.
 - Do etapu M10 grafika to szare bryły. Nie dodawaj modeli ani efektów „na zapas”.
+- Wzorzec wyglądu: Docs/Concept/wzorzec_walka.png. Grafikę robimy dopiero od M10, do tego czasu tylko szare bryły.
 
 ## Nazwy w grze
 

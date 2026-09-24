@@ -165,7 +165,7 @@ Wartości do strojenia w testach, ale od nich zaczynamy.
 
 ### Kamera
 
-- Perspektywa z góry pod kątem około 55 stopni, stała rotacja (nie obracamy kamery, bo myli celowanie).
+- Perspektywa z góry pod kątem około 50 stopni, stała rotacja (nie obracamy kamery, bo myli celowanie).
 - Kamera lekko wyprzedza postać w stronę kursora (do 3 m), dzięki czemu gracz widzi więcej tam, gdzie celuje.
 - Celowanie: promień z kursora przecina płaszczyznę na wysokości biodra postaci. Dzięki temu pociski lecą tam, gdzie gracz klika, nawet na schodach.
 - Ściany i dachy zasłaniające postać robią się półprzezroczyste.
@@ -574,6 +574,15 @@ Styl to stylizowane low-poly z cel-shadingiem: brudna, szara paleta świata i ja
 - **Postacie:** duże głowy, proporcje karykaturalne (około 3 głowy wysokości), ruchy przesadzone jak w kreskówce.
 - **Tekstury:** małe, ręcznie malowane gradienty w stylu palet kolorów zamiast realistycznych tekstur. Szybkie do zrobienia i spójne.
 - **Wyobraźnia przecieka:** plakaty na ścianach ożywają, neony Dolarexu migoczą magią, cienie są rysowane kredą. Im bliżej bloku nr 4, tym mniej magicznych kolorów, aż w mieszkaniu zostają tylko szarość i czerwień.
+
+### Wzorzec wyglądu
+
+- **Obraz referencyjny:** `Docs/Concept/wzorzec_walka.png`.
+- **Styl:** komiks rysowany tuszem, ręcznie malowane brudne tekstury. NIE plastik i NIE gra mobilna.
+- **Światło:** każdy pokój jest ciemny. Światło daje tylko to, co w nim świeci: latarnie, okna, ogień i efekty walki.
+- **Gracz musi się wyróżniać:** jaskrawa kurtka w kolorze, którego nie ma żaden wróg, do tego delikatna poświata lub obwódka.
+- **Frakcje wrogów:** każda ma własny kolor i sylwetkę.
+- **Efekty trafień:** duże, jasne i krótkie (poniżej 0,5 s).
 
 ### Efekty
 

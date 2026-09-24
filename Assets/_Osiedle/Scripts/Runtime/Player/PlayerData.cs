@@ -25,6 +25,61 @@ namespace Osiedle.Player
         [Tooltip("Coyote time (s): tyle po zejściu z krawędzi postać jeszcze nie spada.")]
         [Min(0f)] public float coyoteTime = 0.1f;
 
+        [Header("Ciało (zmiana wymaga ponownego zbudowania sceny: Osiedle/Build/...)")]
+        [Tooltip("Wzrost Kuby (m). Wysokość kapsuły kolizji.")]
+        [Min(0.5f)] public float bodyHeight = 1.4f;
+
+        [Tooltip("Promień kapsuły kolizji (m). Większy = łatwiej trafić Kubę i trudniej przejść wąsko.")]
+        [Min(0.1f)] public float bodyRadius = 0.35f;
+
+        [Tooltip("Najwyższy stopień (m), na który Kuba wchodzi bez skoku.")]
+        [Min(0f)] public float stepOffset = 0.3f;
+
+        [Header("Zdrowie")]
+        [Tooltip("Maksymalne zdrowie (5 butelek oranżady po 20).")]
+        [Min(1f)] public float maxHealth = 100f;
+
+        [Tooltip("Nieśmiertelność po otrzymaniu trafienia (s). Postać miga.")]
+        [Min(0f)] public float hitInvulnerability = 0.8f;
+
+        [Header("Złom i Moc")]
+        [Tooltip("Maksymalny Złom (amunicja broni dystansowej).")]
+        [Min(0)] public int maxScrap = 30;
+
+        [Tooltip("Złom na start.")]
+        [Min(0)] public int startScrap = 10;
+
+        [Tooltip("Maksymalna Moc. Czar zużywa całość.")]
+        [Min(1f)] public float maxPower = 100f;
+
+        [Header("Śrubki (zbieranie Złomu)")]
+        [Tooltip("Z jakiej odległości (m) śrubki same lecą do gracza.")]
+        [Min(0f)] public float scrapMagnetRadius = 3.5f;
+
+        [Tooltip("Prędkość lotu śrubki do gracza (m/s).")]
+        [Min(0f)] public float scrapMagnetSpeed = 14f;
+
+        [Tooltip("Po ilu sekundach od wypadnięcia śrubkę można zebrać.")]
+        [Min(0f)] public float scrapMagnetDelay = 0.3f;
+
+        [Tooltip("Z jakiej odległości (m) śrubka jest zebrana.")]
+        [Min(0.05f)] public float scrapCollectDistance = 0.5f;
+
+        [Tooltip("Prędkość rozrzutu śrubek na boki przy wybiciu (m/s).")]
+        [Min(0f)] public float scrapScatterSpeed = 3f;
+
+        [Tooltip("Najsłabszy rozrzut jako część scrapScatterSpeed (0..1). Mniej = śrubki bardziej rozrzucone po odległości.")]
+        [Range(0f, 1f)] public float scrapScatterMinFraction = 0.5f;
+
+        [Tooltip("Prędkość wyrzutu śrubek w górę przy wybiciu (m/s).")]
+        [Min(0f)] public float scrapScatterUpSpeed = 4f;
+
+        [Tooltip("Grawitacja śrubek (m/s²).")]
+        [Min(0f)] public float scrapGravity = 20f;
+
+        [Tooltip("Ile śrubek przygotować w puli na start sceny.")]
+        [Min(1)] public int scrapPoolSize = 32;
+
         [Header("Celowanie")]
         [Tooltip("Wysokość biodra nad stopami (m). Na tej wysokości leży płaszczyzna, w którą celuje kursor.")]
         [Min(0f)] public float hipHeight = 0.75f;
@@ -80,14 +135,14 @@ namespace Osiedle.Player
         [Min(0f)] public float vaultPromptHeight = 0.4f;
 
         [Header("Kamera")]
-        [Tooltip("Kąt patrzenia kamery w dół (stopnie).")]
-        [Range(20f, 89f)] public float cameraPitch = 55f;
+        [Tooltip("Kąt patrzenia kamery w dół (stopnie). Mniej = bardziej z boku, widać więcej fasad.")]
+        [Range(20f, 89f)] public float cameraPitch = 50f;
 
-        [Tooltip("Odległość kamery od postaci (m).")]
-        [Min(1f)] public float cameraDistance = 16f;
+        [Tooltip("Odległość kamery od postaci (m). 14,3 m przy 50° i FOV 35° = postać ok. 1/10 wysokości ekranu.")]
+        [Min(1f)] public float cameraDistance = 14.3f;
 
-        [Tooltip("Pole widzenia kamery (stopnie).")]
-        [Range(10f, 90f)] public float cameraFieldOfView = 40f;
+        [Tooltip("Pionowe pole widzenia kamery (stopnie). Mniej = mniej zniekształceń perspektywy.")]
+        [Range(10f, 90f)] public float cameraFieldOfView = 35f;
 
         [Tooltip("Wygładzenie ruchu kamery (s). 0 = sztywno.")]
         [Min(0f)] public float cameraDamping = 0.2f;

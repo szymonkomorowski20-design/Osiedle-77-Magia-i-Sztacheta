@@ -212,6 +212,144 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &3170295573335171906
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5952680485449182376}
+  - component: {fileID: 3930763049149574474}
+  - component: {fileID: 8881021245268571751}
+  m_Layer: 0
+  m_Name: Sztacheta
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5952680485449182376
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3170295573335171906}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.77500004}
+  m_LocalScale: {x: 0.22, y: 0.08, z: 1.2}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3099040567544735369}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &3930763049149574474
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3170295573335171906}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &8881021245268571751
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3170295573335171906}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 84c1e0a680b0154458dd910ec805e61f, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 1
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_MaskInteraction: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &6482289722553189366
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5172157609271013878}
+  - component: {fileID: 5345345026981821755}
+  m_Layer: 0
+  m_Name: MeleeHitbox
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5172157609271013878
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6482289722553189366}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.75, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3549649274408627570}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5345345026981821755
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6482289722553189366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2614b40835bdf4e43b1b18ca9a297367, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Osiedle.Runtime::Osiedle.Combat.Hitbox
+  owner: {fileID: 8915320328465753348}
+  targetMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!1 &8915320328465753348
 GameObject:
   m_ObjectHideFlags: 0
@@ -227,6 +365,13 @@ GameObject:
   - component: {fileID: 2929017457515872840}
   - component: {fileID: 617042787856859068}
   - component: {fileID: 8277783134239080305}
+  - component: {fileID: 4963675631755677187}
+  - component: {fileID: 6724380651217989846}
+  - component: {fileID: 7083165135643230261}
+  - component: {fileID: 8112167775610791512}
+  - component: {fileID: 2216384235713902013}
+  - component: {fileID: 3717482332121323603}
+  - component: {fileID: 9108913994543263927}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -250,6 +395,8 @@ Transform:
   - {fileID: 4851215087154672839}
   - {fileID: 148300623255320528}
   - {fileID: 3013602568658377812}
+  - {fileID: 5172157609271013878}
+  - {fileID: 3099040567544735369}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!143 &8787434813297658456
@@ -355,6 +502,142 @@ MonoBehaviour:
   obstacleMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &4963675631755677187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8915320328465753348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f141fbcb752c5774cba61a10560fce61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Osiedle.Runtime::Osiedle.Combat.Health
+--- !u!114 &6724380651217989846
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8915320328465753348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d35837cbc55b0be48bf0e2bcc29ba706, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Osiedle.Runtime::Osiedle.Combat.Hurtbox
+  health: {fileID: 4963675631755677187}
+  knockback: {fileID: 0}
+--- !u!114 &7083165135643230261
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8915320328465753348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 143235f7677f40d4382f7d759f5fbc38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Osiedle.Runtime::Osiedle.Player.PlayerResources
+  data: {fileID: 11400000, guid: 41289344b28d1244ab5f595c969be82a, type: 2}
+  health: {fileID: 4963675631755677187}
+--- !u!114 &8112167775610791512
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8915320328465753348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9be112736df23a74c835704f9cc98127, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Osiedle.Runtime::Osiedle.Combat.ScrapSpawner
+  data: {fileID: 11400000, guid: 41289344b28d1244ab5f595c969be82a, type: 2}
+  resources: {fileID: 7083165135643230261}
+  pickupPrefab: {fileID: 5908094739581849739, guid: 204bc6ae222b829428e045ee4e12835c, type: 3}
+--- !u!114 &2216384235713902013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8915320328465753348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c315eb41136346d4191815456ff295d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Osiedle.Runtime::Osiedle.Player.PlayerMelee
+  playerData: {fileID: 11400000, guid: 41289344b28d1244ab5f595c969be82a, type: 2}
+  weapon: {fileID: 11400000, guid: d8d2b1ba07fdb1b468f4f6b94578146a, type: 2}
+  input: {fileID: 287964938688319846}
+  motor: {fileID: 7363610575136742041}
+  dash: {fileID: 617042787856859068}
+  resources: {fileID: 7083165135643230261}
+  hitbox: {fileID: 5345345026981821755}
+  scrapSpawner: {fileID: 8112167775610791512}
+--- !u!114 &3717482332121323603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8915320328465753348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc26ce6ba18869144bb9437045732eb0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Osiedle.Runtime::Osiedle.Player.MeleeSwingVisual
+  melee: {fileID: 2216384235713902013}
+  pivot: {fileID: 3099040567544735369}
+--- !u!114 &9108913994543263927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8915320328465753348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a50d47045077d8b40a22a912ac9c12d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Osiedle.Runtime::Osiedle.UI.DebugHud
+  resources: {fileID: 7083165135643230261}
+  dash: {fileID: 617042787856859068}
+  melee: {fileID: 2216384235713902013}
+--- !u!1 &9109399623456028261
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3099040567544735369}
+  m_Layer: 0
+  m_Name: WeaponPivot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &3099040567544735369
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9109399623456028261}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.75, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 5952680485449182376}
+  m_Father: {fileID: 3549649274408627570}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &9158173006393751685
 GameObject:
   m_ObjectHideFlags: 0

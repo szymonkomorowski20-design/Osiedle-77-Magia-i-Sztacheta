@@ -8,5 +8,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Osiedle/Scenes/Test_Movement.unity
     guid: 08b88b75a022e3144a1148aaaa5eb73f
+  - enabled: 1
+    path: Assets/_Osiedle/Scenes/Test_Combat.unity
+    guid: e3dbc700507fae04ab25c7f8876b147b
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 18346d09aae02da47846bcaf7af40662, type: 3}
