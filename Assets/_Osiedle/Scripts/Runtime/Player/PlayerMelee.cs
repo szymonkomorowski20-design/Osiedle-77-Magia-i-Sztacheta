@@ -12,8 +12,6 @@ namespace Osiedle.Player
     [DefaultExecutionOrder(5)]
     public class PlayerMelee : MonoBehaviour
     {
-        enum Phase { Idle, Windup, Active, Recovery }
-
         [SerializeField] PlayerData playerData;
         [SerializeField] MeleeWeaponData weapon;
         [SerializeField] PlayerInputReader input;
@@ -27,17 +25,38 @@ namespace Osiedle.Player
 
         InputBuffer buffer;
         ComboCounter combo;
-        Phase phase;
+        MeleePhase phase;
         int stepIndex;
         float phaseTimer;
         MeleeComboStep step;
 
-        public bool IsAttacking => phase != Phase.Idle;
+        public bool IsAttacking => phase != MeleePhase.Idle;
 
         /// <summary>Numer trwającego ciosu serii (0 = pierwszy), -1 gdy nie atakuje.</summary>
         public int CurrentStep => IsAttacking ? stepIndex : -1;
 
         public MeleeWeaponData Weapon => weapon;
+
+        public MeleePhase Phase => phase;
+
+        /// <summary>Czy trwający cios jest ostatnim w serii (np. inny zamach).</summary>
+        public bool IsFinisher => IsAttacking && weapon != null && stepIndex == weapon.combo.Length - 1;
+
+        /// <summary>Postęp bieżącej fazy ciosu, 0..1 (dla wyglądu zamachu).</summary>
+        public float PhaseProgress
+        {
+            get
+            {
+                float duration = phase switch
+                {
+                    MeleePhase.Windup => step.windup,
+                    MeleePhase.Active => step.active,
+                    MeleePhase.Recovery => step.recovery,
+                    _ => 0f,
+                };
+                return duration > 0f ? Mathf.Clamp01(phaseTimer / duration) : 1f;
+            }
+        }
 
         void Awake()
         {
@@ -83,10 +102,10 @@ namespace Osiedle.Player
             combo.SetLength(weapon.combo.Length);
             combo.ResetTime = weapon.comboResetTime;
 
-            if (phase != Phase.Idle) Tick();
+            if (phase != MeleePhase.Idle) Tick();
 
             bool dashing = dash != null && dash.IsBusy;
-            if (phase == Phase.Idle && !dashing && weapon.combo.Length > 0 && buffer.TryConsume(Time.time))
+            if (phase == MeleePhase.Idle && !dashing && weapon.combo.Length > 0 && buffer.TryConsume(Time.time))
                 BeginStep();
         }
 
@@ -94,7 +113,7 @@ namespace Osiedle.Player
         {
             stepIndex = combo.Next(Time.time);
             step = weapon.combo[stepIndex];
-            phase = Phase.Windup;
+            phase = MeleePhase.Windup;
             phaseTimer = 0f;
             motor.SpeedMultiplier = weapon.moveSpeedMultiplier;
         }
@@ -105,22 +124,22 @@ namespace Osiedle.Player
 
             switch (phase)
             {
-                case Phase.Windup:
+                case MeleePhase.Windup:
                     if (phaseTimer < step.windup) return;
                     phaseTimer -= step.windup;
-                    phase = Phase.Active;
+                    phase = MeleePhase.Active;
                     hitbox.Activate(BuildDamage(), weapon.range, weapon.arcDegrees);
                     break;
 
-                case Phase.Active:
+                case MeleePhase.Active:
                     Lunge();
                     if (phaseTimer < step.active) return;
                     phaseTimer -= step.active;
                     hitbox.Deactivate();
-                    phase = Phase.Recovery;
+                    phase = MeleePhase.Recovery;
                     break;
 
-                case Phase.Recovery:
+                case MeleePhase.Recovery:
                     if (phaseTimer < step.recovery) return;
                     Finish();
                     break;
@@ -149,7 +168,7 @@ namespace Osiedle.Player
 
         void Finish()
         {
-            phase = Phase.Idle;
+            phase = MeleePhase.Idle;
             combo.EndStep(Time.time);
             motor.SpeedMultiplier = 1f;
         }
@@ -157,7 +176,7 @@ namespace Osiedle.Player
         /// <summary>Przerywa cios (np. dashem). Seria trwa dalej, jeśli następny cios przyjdzie w oknie.</summary>
         void Cancel()
         {
-            if (phase == Phase.Idle) return;
+            if (phase == MeleePhase.Idle) return;
             hitbox.Deactivate();
             Finish();
         }

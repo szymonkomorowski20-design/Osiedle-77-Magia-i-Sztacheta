@@ -10,6 +10,15 @@ Claude dopisuje tu wpis na końcu każdego etapu. Najnowszy wpis na górze.
 
 ## Dziennik
 
+### 2026-09-24 — M1 (poprawka) Widoczny zamach sztachety
+- Zgłoszenie autora: „nie widzę uderzeń” — cios nie miał żadnego wyglądu, był widoczny tylko po trafieniu manekina (błysk, odrzut, śrubki).
+- Działa:
+  - `MeleeSwingVisual`: szara sztacheta pojawia się tylko w trakcie ciosu; ciosy 1 i 2 zamiatają poziomo na przemian, 3. uderza z góry. Łuk = `arcDegrees` broni.
+  - `PlayerMelee` udostępnia fazę i postęp ciosu (`MeleePhase`, `PhaseProgress`, `IsFinisher`).
+  - Nowe pola w `Sztacheta`: `visualLength`, `overheadRaiseDegrees`, `overheadEndDegrees`.
+  - Sprawdzone zrzutami z kamery gry (sztacheta widoczna, manekin błyska po trafieniu). Test sceny sprawdza też widoczność broni. Testy 40/40.
+- Uwaga: proca (LPM) to etap M2 — w M1 lewy przycisk nic nie robi.
+
 ### 2026-09-24 — M1 (dodatek) Kamera 50° i wzorzec wyglądu
 - Działa:
   - Kamera: kąt 50° (było 55°), FOV 35° (było 40°), odległość 14,3 m — postać zajmuje ok. 1/10 wysokości ekranu. Dalej bez obrotu i z wyprzedzeniem w stronę kursora. Wszystko w `PlayerData` (sekcja Kamera).

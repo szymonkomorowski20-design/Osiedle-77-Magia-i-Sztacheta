@@ -52,6 +52,16 @@ namespace Osiedle.Editor
             hitboxGo.transform.localPosition = new Vector3(0f, data.hipHeight, 0f);
             var hitbox = hitboxGo.AddComponent<Hitbox>();
 
+            // Widoczna sztacheta: obraca się wokół biodra w trakcie ciosu (MeleeSwingVisual).
+            var swingPivot = new GameObject("WeaponPivot");
+            swingPivot.transform.SetParent(root.transform, false);
+            swingPivot.transform.localPosition = new Vector3(0f, data.hipHeight, 0f);
+            var stick = BuilderUtils.Visual(PrimitiveType.Cube, "Sztacheta", swingPivot.transform, materials.Weapon);
+            stick.transform.localPosition = new Vector3(0f, 0f, radius * 0.5f + weapon.visualLength * 0.5f);
+            // Celowo grubsza niż prawdziwa deska, żeby była czytelna z odległości kamery.
+            stick.transform.localScale = new Vector3(0.22f, 0.08f, weapon.visualLength);
+            swingPivot.SetActive(false);
+
             var input = root.AddComponent<PlayerInputReader>();
             var motor = root.AddComponent<PlayerMotor>();
             var aim = root.AddComponent<PlayerAim>();
@@ -62,6 +72,7 @@ namespace Osiedle.Editor
             var resources = root.AddComponent<PlayerResources>();
             var scrapSpawner = root.AddComponent<ScrapSpawner>();
             var melee = root.AddComponent<PlayerMelee>();
+            var swing = root.AddComponent<MeleeSwingVisual>();
             var hud = root.AddComponent<DebugHud>();
 
             BuilderUtils.Wire(input, ("actions", controls));
@@ -75,7 +86,8 @@ namespace Osiedle.Editor
             BuilderUtils.Wire(scrapSpawner, ("data", data), ("resources", resources), ("pickupPrefab", scrapPrefab));
             BuilderUtils.Wire(melee, ("playerData", data), ("weapon", weapon), ("input", input), ("motor", motor),
                 ("dash", dash), ("resources", resources), ("hitbox", hitbox), ("scrapSpawner", scrapSpawner));
-            BuilderUtils.Wire(hud, ("resources", resources), ("dash", dash), ("melee", melee));
+            BuilderUtils.Wire(swing, ("melee", melee), ("pivot", swingPivot.transform));
+            BuilderUtils.Wire(hud,("resources", resources), ("dash", dash), ("melee", melee));
 
             return BuilderUtils.SavePrefab(root, Path);
         }

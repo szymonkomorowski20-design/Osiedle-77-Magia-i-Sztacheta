@@ -46,11 +46,23 @@ namespace Osiedle.Tests
             Vector3 startPosition = target.transform.position;
             var weapon = melee.Weapon;
 
+            var weaponPivot = melee.transform.Find("WeaponPivot");
+            Assert.IsNotNull(weaponPivot, "Brak widocznej broni (WeaponPivot) w prefabie gracza.");
+            Assert.IsFalse(weaponPivot.gameObject.activeSelf, "Broń powinna być schowana, gdy gracz nie bije.");
+
             float expected = 0f;
+            bool first = true;
             foreach (var step in weapon.combo)
             {
                 expected += weapon.damage * step.damageMultiplier;
                 melee.RequestAttack();
+                if (first)
+                {
+                    yield return null;
+                    yield return null;
+                    Assert.IsTrue(weaponPivot.gameObject.activeSelf, "Broń powinna być widoczna w trakcie ciosu.");
+                    first = false;
+                }
                 // Czekamy na koniec ciosu (plus zapas na hit-stop).
                 yield return WaitSeconds(step.Duration + 0.1f);
             }

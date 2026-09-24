@@ -12,7 +12,7 @@ namespace Osiedle.Editor
         const string Folder = BuilderUtils.Root + "/Art/Materials";
         const string BaseColorProperty = "_BaseColor";
 
-        public Material Floor, Wall, Vaultable, VaultEdge, Player, PlayerFace, Arrow, Dummy, Scrap;
+        public Material Floor, Wall, Vaultable, VaultEdge, Player, PlayerFace, Arrow, Dummy, Scrap, Weapon;
 
         public static BuilderMaterials Build()
         {
@@ -28,6 +28,8 @@ namespace Osiedle.Editor
                 Arrow = Grey("M_VaultArrow", new Color(0.97f, 0.97f, 0.94f)),
                 Dummy = Grey("M_Dummy", new Color(0.55f, 0.48f, 0.38f)),
                 Scrap = Grey("M_Scrap", new Color(0.74f, 0.75f, 0.78f)),
+                // Jasne, spłowiałe drewno sztachety — musi być widoczne na szarej podłodze.
+                Weapon = Grey("M_Weapon", new Color(0.80f, 0.74f, 0.62f)),
             };
         }
 

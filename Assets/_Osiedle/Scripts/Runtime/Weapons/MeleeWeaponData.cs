@@ -37,6 +37,16 @@ namespace Osiedle.Weapons
         [Tooltip("Mnożnik prędkości ruchu w trakcie ciosu.")]
         [Range(0f, 1f)] public float moveSpeedMultiplier = 0.3f;
 
+        [Header("Wygląd zamachu (szara bryła do M10)")]
+        [Tooltip("Długość broni (m). Zmiana wymaga ponownego zbudowania sceny.")]
+        [Min(0.1f)] public float visualLength = 1.2f;
+
+        [Tooltip("Ostatni cios serii: jak wysoko broń idzie nad głowę (stopnie).")]
+        [Range(0f, 120f)] public float overheadRaiseDegrees = 80f;
+
+        [Tooltip("Ostatni cios serii: gdzie kończy się uderzenie (stopnie w dół).")]
+        [Range(0f, 60f)] public float overheadEndDegrees = 25f;
+
         [Header("Złom i Moc")]
         [Tooltip("Najmniej śrubek wybitych jednym trafieniem.")]
         [Min(0)] public int scrapPerHitMin = 1;
