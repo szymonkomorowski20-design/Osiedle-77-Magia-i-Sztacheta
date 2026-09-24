@@ -23,6 +23,9 @@ namespace Osiedle.Combat
         public float Normalized => pool?.Normalized ?? 0f;
         public bool IsDead => pool == null || pool.IsDead;
 
+        /// <summary>Czy trwa nieśmiertelność po trafieniu (np. żeby postać migała).</summary>
+        public bool IsInvulnerable => pool != null && pool.IsInvulnerable(Time.time);
+
         public void Configure(float max, float invulnerabilityAfterHit)
         {
             if (pool == null) pool = new HealthPool(max, invulnerabilityAfterHit);

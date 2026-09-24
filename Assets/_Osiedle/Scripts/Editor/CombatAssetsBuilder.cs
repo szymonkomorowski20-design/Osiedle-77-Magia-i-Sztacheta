@@ -91,14 +91,98 @@ namespace Osiedle.Editor
             var health = root.AddComponent<Health>();
             var knockback = root.AddComponent<Knockback>();
             var hurtbox = root.AddComponent<Hurtbox>();
+            var flash = root.AddComponent<HitFlash>();
             var dummy = root.AddComponent<TrainingDummy>();
 
             BuilderUtils.Wire(hurtbox, ("health", health), ("knockback", knockback));
-            BuilderUtils.Wire(dummy, ("data", data), ("health", health), ("knockback", knockback));
-            BuilderUtils.WireArray(dummy, "flashRenderers",
-                body.GetComponent<Renderer>(), head.GetComponent<Renderer>());
+            BuilderUtils.Wire(flash, ("health", health));
+            BuilderUtils.WireArray(flash, "renderers", body.GetComponent<Renderer>(), head.GetComponent<Renderer>());
+            BuilderUtils.Wire(dummy, ("data", data), ("health", health), ("knockback", knockback), ("flash", flash));
 
             return BuilderUtils.SavePrefab(root, DummyPrefabPath);
+        }
+
+        // ---------- Kibic Szarżujący ----------
+
+        public const string KibicDataPath = BuilderUtils.Root + "/Data/Enemies/Kibic.asset";
+        public const string KibicChargePath = BuilderUtils.Root + "/Data/Enemies/Kibic_Szarza.asset";
+        public const string KibicPrefabPath = BuilderUtils.Root + "/Prefabs/Enemies/Kibic.prefab";
+
+        // Telegraf leży tuż nad podłogą; wypełnienie odrobinę wyżej niż obrys, żeby się nie migotały.
+        const float TelegraphHeight = 0.03f;
+        const float TelegraphFillLift = 0.01f;
+        const float TelegraphThickness = 0.01f;
+
+        public static EnemyData KibicData() => BuilderUtils.LoadOrCreateData<EnemyData>(KibicDataPath, d =>
+        {
+            // Wartości startowe Kibica (tylko przy tworzeniu pliku — potem stroisz w Inspectorze).
+            d.moveSpeed = 3.2f;
+            d.bodyHeight = 1.8f;
+            d.bodyRadius = 0.45f;
+            d.maxHealth = 120f;
+            d.knockbackMultiplier = 0.5f;
+            d.regenDelay = 0f;
+            d.regenPerSecond = 0f;
+            d.respawnDelay = 0f;
+        });
+
+        public static ChargerData KibicCharge() => BuilderUtils.LoadOrCreateData<ChargerData>(KibicChargePath);
+
+        public static GameObject KibicPrefab(EnemyData data, ChargerData charge, BuilderMaterials materials)
+        {
+            var root = new GameObject("Kibic");
+            float height = data.bodyHeight;
+            float radius = data.bodyRadius;
+
+            var controller = root.AddComponent<CharacterController>();
+            controller.height = height;
+            controller.radius = radius;
+            controller.center = new Vector3(0f, height * 0.5f, 0f);
+            controller.minMoveDistance = 0f;
+
+            // Sylwetka: masywna kapsuła, „twarz” pokazuje kierunek, kij bejsbolowy w prawej ręce.
+            var body = BuilderUtils.Visual(PrimitiveType.Capsule, "Body", root.transform, materials.Kibic);
+            body.transform.localPosition = new Vector3(0f, height * 0.5f, 0f);
+            body.transform.localScale = new Vector3(radius * 2f, height * 0.5f, radius * 2f);
+            var face = BuilderUtils.Visual(PrimitiveType.Cube, "Face", root.transform, materials.PlayerFace);
+            face.transform.localPosition = new Vector3(0f, height * 0.8f, radius);
+            face.transform.localScale = new Vector3(0.35f, 0.12f, 0.12f);
+
+            var batPivot = new GameObject("BatPivot").transform;
+            batPivot.SetParent(root.transform, false);
+            batPivot.localPosition = new Vector3(radius * 0.9f, height * 0.6f, radius * 0.3f);
+            var bat = BuilderUtils.Visual(PrimitiveType.Cube, "Bat", batPivot, materials.Bat);
+            bat.transform.localPosition = new Vector3(0f, 0f, 0.45f);
+            bat.transform.localScale = new Vector3(0.1f, 0.1f, 0.9f);
+
+            // Telegraf szarży: pas na ziemi przed Kibicem.
+            var telegraphGo = new GameObject("Telegraf");
+            telegraphGo.transform.SetParent(root.transform, false);
+            telegraphGo.transform.localPosition = new Vector3(0f, TelegraphHeight, 0f);
+            var lane = BuilderUtils.Visual(PrimitiveType.Cube, "Obrys", telegraphGo.transform, materials.TelegraphLane);
+            lane.transform.localScale = new Vector3(1f, TelegraphThickness, 1f);
+            var fill = BuilderUtils.Visual(PrimitiveType.Cube, "Wypelnienie", telegraphGo.transform, materials.TelegraphFill);
+            fill.transform.localPosition = new Vector3(0f, TelegraphFillLift, 0f);
+            fill.transform.localScale = new Vector3(1f, TelegraphThickness, 1f);
+            foreach (var r in telegraphGo.GetComponentsInChildren<Renderer>())
+                r.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+            var telegraph = telegraphGo.AddComponent<AttackTelegraph>();
+            BuilderUtils.Wire(telegraph, ("lane", lane.transform), ("fill", fill.transform));
+            telegraphGo.SetActive(false);
+
+            var health = root.AddComponent<Health>();
+            var knockback = root.AddComponent<Knockback>();
+            var hurtbox = root.AddComponent<Hurtbox>();
+            var flash = root.AddComponent<HitFlash>();
+            var brain = root.AddComponent<ChargerBrain>();
+
+            BuilderUtils.Wire(hurtbox, ("health", health), ("knockback", knockback));
+            BuilderUtils.Wire(flash, ("health", health));
+            BuilderUtils.WireArray(flash, "renderers", body.GetComponent<Renderer>(), bat.GetComponent<Renderer>());
+            BuilderUtils.Wire(brain, ("data", data), ("charge", charge), ("health", health), ("knockback", knockback),
+                ("flash", flash), ("telegraph", telegraph), ("batPivot", batPivot));
+
+            return BuilderUtils.SavePrefab(root, KibicPrefabPath);
         }
     }
 }

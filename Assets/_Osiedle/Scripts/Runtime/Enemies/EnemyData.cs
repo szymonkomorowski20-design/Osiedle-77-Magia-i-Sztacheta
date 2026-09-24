@@ -15,6 +15,10 @@ namespace Osiedle.Enemies
         [Tooltip("Promień kapsuły kolizji (m). Większy = łatwiej trafić.")]
         [Min(0.1f)] public float bodyRadius = 0.4f;
 
+        [Header("Ruch")]
+        [Tooltip("Prędkość podchodzenia do gracza (m/s).")]
+        [Min(0f)] public float moveSpeed = 3.2f;
+
         [Header("Zdrowie")]
         [Min(1f)] public float maxHealth = 300f;
 

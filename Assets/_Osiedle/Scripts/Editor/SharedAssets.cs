@@ -19,6 +19,7 @@ namespace Osiedle.Editor
         public EnemyData DummyData;
         public GameObject PlayerPrefab;
         public GameObject DummyPrefab;
+        public GameObject KibicPrefab;
 
         public static SharedAssets Build()
         {
@@ -37,6 +38,8 @@ namespace Osiedle.Editor
             assets.PlayerPrefab = PlayerPrefabBuilder.Build(assets.PlayerData, assets.Controls, assets.Materials,
                 assets.Sztacheta, assets.Proca, scrapPrefab, boltPrefab);
             assets.DummyPrefab = CombatAssetsBuilder.DummyPrefab(assets.DummyData, assets.Materials);
+            assets.KibicPrefab = CombatAssetsBuilder.KibicPrefab(CombatAssetsBuilder.KibicData(),
+                CombatAssetsBuilder.KibicCharge(), assets.Materials);
             return assets;
         }
     }

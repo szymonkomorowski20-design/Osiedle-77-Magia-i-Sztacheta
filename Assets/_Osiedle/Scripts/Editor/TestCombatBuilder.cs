@@ -44,6 +44,11 @@ namespace Osiedle.Editor
             Dummy(assets, dummies, "Manekin_Daleki", new Vector3(-6f, 0f, 8.5f));
 
             GameObject player = SceneKit.Player(scene, assets, new Vector3(0f, 0f, -2f));
+
+            // Kibic Szarżujący: startuje w rogu przy garażach, idzie na Kubę i szarżuje z telegrafem.
+            var kibic = (GameObject)PrefabUtility.InstantiatePrefab(assets.KibicPrefab, scene);
+            kibic.transform.SetPositionAndRotation(new Vector3(6.5f, 0f, 7f), Quaternion.LookRotation(Vector3.back));
+            BuilderUtils.Wire(kibic.GetComponent<Enemies.ChargerBrain>(), ("target", player.GetComponent<Combat.Hurtbox>()));
             SceneKit.CameraRig(assets.PlayerData, player);
             SceneKit.HitStop();
 

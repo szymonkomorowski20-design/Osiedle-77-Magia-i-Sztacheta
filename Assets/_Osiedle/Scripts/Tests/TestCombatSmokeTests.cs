@@ -23,6 +23,7 @@ namespace Osiedle.Tests
         {
             EditorSceneManager.OpenScene(ScenePath);
             yield return new EnterPlayMode();
+            DisableEnemies();
 
             var melee = Object.FindAnyObjectByType<PlayerMelee>();
             Assert.IsNotNull(melee, "Brak gracza w scenie.");
@@ -83,6 +84,7 @@ namespace Osiedle.Tests
         {
             EditorSceneManager.OpenScene(ScenePath);
             yield return new EnterPlayMode();
+            DisableEnemies();
 
             var ranged = Object.FindAnyObjectByType<PlayerRanged>();
             Assert.IsNotNull(ranged, "Brak procy u gracza.");
@@ -113,6 +115,13 @@ namespace Osiedle.Tests
             Assert.Greater(resources.Power, 0f, "Trafienie z procy powinno ładować Moc.");
 
             yield return new ExitPlayMode();
+        }
+
+        // Kibic przeszkadzałby w teście broni — wyłączamy wrogów na czas testu.
+        static void DisableEnemies()
+        {
+            foreach (var enemy in Object.FindObjectsByType<ChargerBrain>())
+                enemy.gameObject.SetActive(false);
         }
 
         static Health FindDummy(string name)

@@ -46,6 +46,7 @@ namespace Osiedle.Editor
                 Action(PlayerInputReader.SpellAction, "Button", "Button"),
                 Action(PlayerInputReader.InteractAction, "Button", "Button"),
                 Action(PlayerInputReader.ThrowAction, "Button", "Button"),
+                Action(PlayerInputReader.RestartAction, "Button", "Button"),
             };
 
             var bindings = new[]
@@ -62,6 +63,7 @@ namespace Osiedle.Editor
                 Binding("", "<Keyboard>/q", PlayerInputReader.SpellAction),
                 Binding("", "<Keyboard>/e", PlayerInputReader.InteractAction),
                 Binding("", "<Keyboard>/f", PlayerInputReader.ThrowAction),
+                Binding("", "<Keyboard>/r", PlayerInputReader.RestartAction),
             };
 
             var sb = new StringBuilder();

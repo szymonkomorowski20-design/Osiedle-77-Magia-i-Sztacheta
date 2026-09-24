@@ -12,6 +12,7 @@ namespace Osiedle.Player
     {
         [SerializeField] PlayerData data;
         [SerializeField] Health health;
+        [SerializeField] Knockback knockback;
 
         ResourcePool scrap;
         ResourcePool power;
@@ -34,6 +35,8 @@ namespace Osiedle.Player
             }
 
             health.Configure(data.maxHealth, data.hitInvulnerability);
+            if (knockback == null) knockback = GetComponent<Knockback>();
+            if (knockback != null) knockback.Configure(data.knockbackMultiplier, data.knockbackDeceleration);
             scrap = new ResourcePool(data.maxScrap, data.startScrap);
             power = new ResourcePool(data.maxPower, 0f);
         }

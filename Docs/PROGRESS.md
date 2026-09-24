@@ -10,6 +10,17 @@ Claude dopisuje tu wpis na końcu każdego etapu. Najnowszy wpis na górze.
 
 ## Dziennik
 
+### 2026-09-24 — Podwórko, część 1: Kibic z telegrafem, obrażenia, śmierć, restart (gałąź `m3-podworko`, na bazie `m2-proca`)
+- Kontekst: po audycie (TopDown Engine vs obecny kod) autor przyjął rekomendację: zostajemy przy obecnym kodzie, najmniejszy grywalny test „Podwórko”, pakietu nie kupujemy.
+- Działa (testy automatyczne 61/61 + zrzuty z kamery gry; NIE sprawdzone ręcznie):
+  - `ChargerBrain` (Kibic Szarżujący): podchodzi → zamach 0,6 s z czerwonym telegrafem na ziemi (`AttackTelegraph`: pas + rosnące wypełnienie) → szarża 13 m/s na 9 m, nie skręca, przelatuje przez Kubę i spycha go na bok → ogłuszenie 1,5 s po wbiciu się w przeszkodę albo odpoczynek 0,7 s. 120 HP, pada po śmierci. Dane: `Data/Enemies/Kibic`, `Data/Enemies/Kibic_Szarza`.
+  - Kuba dostaje obrażenia (20 za szarżę), odlatuje, miga 0,8 s (`PlayerHitBlink`), wstrząs ekranu; dash w trakcie nietykalności przechodzi przez szarżę.
+  - Śmierć (`PlayerDeath`): sterowanie wyłączone, postać leży; R = szybki restart sceny (`QuickRestart`, działa zawsze).
+  - `HitFlash` wydzielony z manekina (wspólny dla wrogów).
+- Uproszczenia (świadome, za zgodą autora): Kibic idzie prosto do celu bez NavMesh; brak `AttackTokenManager` (jeden wróg).
+- Znane braki: brak dźwięków; Kibic może utknąć za garażem (brak NavMesh); proca (M2) wciąż niesprawdzona ręcznie.
+- Tag git: brak.
+
 ### 2026-09-24 — M1 (poprawka) Widoczny zamach sztachety
 - Zgłoszenie autora: „nie widzę uderzeń” — cios nie miał żadnego wyglądu, był widoczny tylko po trafieniu manekina (błysk, odrzut, śrubki).
 - Działa:

@@ -34,12 +34,15 @@ namespace Osiedle.Editor
             // 0 = kontroler nie ignoruje małych ruchów (przy wysokim FPS docisk do ziemi jest bardzo mały).
             controller.minMoveDistance = 0f;
 
-            // Wygląd: kapsuła + "twarz", żeby było widać, gdzie postać patrzy.
-            var body = BuilderUtils.Visual(PrimitiveType.Capsule, "Body", root.transform, materials.Player);
+            // Wygląd: kapsuła + "twarz", żeby było widać, gdzie postać patrzy. Wspólny rodzic — po śmierci się przewraca.
+            var visual = new GameObject("Visual").transform;
+            visual.SetParent(root.transform, false);
+
+            var body = BuilderUtils.Visual(PrimitiveType.Capsule, "Body", visual, materials.Player);
             body.transform.localPosition = new Vector3(0f, height * 0.5f, 0f);
             body.transform.localScale = new Vector3(radius * 2f, height * 0.5f, radius * 2f);
 
-            var face = BuilderUtils.Visual(PrimitiveType.Cube, "Face", root.transform, materials.PlayerFace);
+            var face = BuilderUtils.Visual(PrimitiveType.Cube, "Face", visual, materials.PlayerFace);
             face.transform.localPosition = new Vector3(0f, height * 0.75f, radius);
             face.transform.localScale = new Vector3(0.3f, 0.12f, 0.12f);
 
@@ -81,7 +84,11 @@ namespace Osiedle.Editor
             var projectiles = root.AddComponent<ProjectilePool>();
             var ranged = root.AddComponent<PlayerRanged>();
             var impulse = root.AddComponent<CinemachineImpulseSource>();
-            root.AddComponent<CameraShake>();
+            var shake = root.AddComponent<CameraShake>();
+            var knockback = root.AddComponent<Knockback>();
+            var blink = root.AddComponent<PlayerHitBlink>();
+            var death = root.AddComponent<PlayerDeath>();
+            var restart = root.AddComponent<QuickRestart>();
             var hud = root.AddComponent<DebugHud>();
 
             impulse.ImpulseDefinition = new CinemachineImpulseDefinition
@@ -103,8 +110,8 @@ namespace Osiedle.Editor
             BuilderUtils.Wire(dash, ("data", data), ("input", input), ("motor", motor), ("aim", aim));
             BuilderUtils.Wire(prompt, ("data", data), ("dash", dash), ("arrow", arrow.transform));
             BuilderUtils.Wire(hitbox, ("owner", root));
-            BuilderUtils.Wire(hurtbox, ("health", health));
-            BuilderUtils.Wire(resources, ("data", data), ("health", health));
+            BuilderUtils.Wire(hurtbox, ("health", health), ("knockback", knockback));
+            BuilderUtils.Wire(resources, ("data", data), ("health", health), ("knockback", knockback));
             BuilderUtils.Wire(scrapSpawner, ("data", data), ("resources", resources), ("pickupPrefab", scrapPrefab));
             BuilderUtils.Wire(melee, ("playerData", data), ("weapon", weapon), ("input", input), ("motor", motor),
                 ("dash", dash), ("resources", resources), ("hitbox", hitbox), ("scrapSpawner", scrapSpawner));
@@ -112,7 +119,13 @@ namespace Osiedle.Editor
             BuilderUtils.Wire(projectiles, ("prefab", boltPrefab), ("owner", root));
             BuilderUtils.Wire(ranged, ("playerData", data), ("weapon", rangedWeapon), ("input", input), ("aim", aim),
                 ("dash", dash), ("melee", melee), ("resources", resources), ("projectiles", projectiles));
-            BuilderUtils.Wire(hud, ("resources", resources), ("dash", dash), ("melee", melee));
+            BuilderUtils.Wire(shake, ("data", data));
+            BuilderUtils.Wire(blink, ("data", data), ("health", health));
+            BuilderUtils.WireArray(blink, "renderers", body.GetComponent<Renderer>(), face.GetComponent<Renderer>());
+            BuilderUtils.Wire(death, ("health", health), ("visualRoot", visual));
+            BuilderUtils.WireArray(death, "disableOnDeath", motor, aim, dash, prompt, melee, ranged);
+            BuilderUtils.Wire(restart, ("input", input));
+            BuilderUtils.Wire(hud, ("resources", resources), ("dash", dash), ("melee", melee), ("death", death));
 
             return BuilderUtils.SavePrefab(root, Path);
         }

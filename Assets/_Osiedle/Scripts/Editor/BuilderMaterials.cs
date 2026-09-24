@@ -12,7 +12,8 @@ namespace Osiedle.Editor
         const string Folder = BuilderUtils.Root + "/Art/Materials";
         const string BaseColorProperty = "_BaseColor";
 
-        public Material Floor, Wall, Vaultable, VaultEdge, Player, PlayerFace, Arrow, Dummy, Scrap, Weapon, Bolt, BoltTrail;
+        public Material Floor, Wall, Vaultable, VaultEdge, Player, PlayerFace, Arrow, Dummy, Scrap, Weapon, Bolt, BoltTrail,
+            Kibic, Bat, TelegraphLane, TelegraphFill;
 
         public static BuilderMaterials Build()
         {
@@ -33,6 +34,12 @@ namespace Osiedle.Editor
                 // Śruba z procy: jasna stal; smuga bez oświetlenia, żeby pocisk był widoczny w ruchu.
                 Bolt = Grey("M_Bolt", new Color(0.88f, 0.89f, 0.92f)),
                 BoltTrail = Grey("M_BoltTrail", new Color(0.95f, 0.95f, 0.93f), UnlitShader),
+                // Kibic: ciemny, chłodny szary — sylwetka odcina się od manekinów i podłogi.
+                Kibic = Grey("M_Kibic", new Color(0.24f, 0.25f, 0.30f)),
+                Bat = Grey("M_Bat", new Color(0.62f, 0.52f, 0.40f)),
+                // Czerwień TYLKO na telegrafy ataków wroga (CLAUDE.md). Bez oświetlenia, żeby świeciła w ciemności.
+                TelegraphLane = Grey("M_TelegraphLane", new Color(0.45f, 0.04f, 0.04f), UnlitShader),
+                TelegraphFill = Grey("M_TelegraphFill", new Color(1.00f, 0.12f, 0.08f), UnlitShader),
             };
         }
 

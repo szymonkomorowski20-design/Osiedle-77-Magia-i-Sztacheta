@@ -21,6 +21,7 @@ namespace Osiedle.Player
         public const string SpellAction = "Spell";
         public const string InteractAction = "Interact";
         public const string ThrowAction = "Throw";
+        public const string RestartAction = "Restart";
 
         [SerializeField] InputActionAsset actions;
 
@@ -30,6 +31,7 @@ namespace Osiedle.Player
         InputAction dash;
         InputAction melee;
         InputAction ranged;
+        InputAction restart;
 
         /// <summary>Kierunek ruchu z klawiatury (WASD), długość 0..1.</summary>
         public Vector2 Move => move != null ? move.ReadValue<Vector2>() : Vector2.zero;
@@ -43,6 +45,7 @@ namespace Osiedle.Player
         public event Action DashPressed;
         public event Action MeleePressed;
         public event Action RangedPressed;
+        public event Action RestartPressed;
 
         void Awake()
         {
@@ -59,6 +62,7 @@ namespace Osiedle.Player
             dash = map.FindAction(DashAction, true);
             melee = map.FindAction(MeleeAction, true);
             ranged = map.FindAction(RangedAction, true);
+            restart = map.FindAction(RestartAction, true);
         }
 
         void OnEnable()
@@ -67,6 +71,7 @@ namespace Osiedle.Player
             dash.performed += HandleDash;
             melee.performed += HandleMelee;
             ranged.performed += HandleRanged;
+            restart.performed += HandleRestart;
             map.Enable();
         }
 
@@ -76,11 +81,13 @@ namespace Osiedle.Player
             dash.performed -= HandleDash;
             melee.performed -= HandleMelee;
             ranged.performed -= HandleRanged;
+            restart.performed -= HandleRestart;
             map.Disable();
         }
 
         void HandleDash(InputAction.CallbackContext context) => DashPressed?.Invoke();
         void HandleMelee(InputAction.CallbackContext context) => MeleePressed?.Invoke();
         void HandleRanged(InputAction.CallbackContext context) => RangedPressed?.Invoke();
+        void HandleRestart(InputAction.CallbackContext context) => RestartPressed?.Invoke();
     }
 }

@@ -42,6 +42,18 @@ namespace Osiedle.Player
         [Tooltip("Nieśmiertelność po otrzymaniu trafienia (s). Postać miga.")]
         [Min(0f)] public float hitInvulnerability = 0.8f;
 
+        [Tooltip("Jak szybko postać miga w czasie nieśmiertelności (s na jedno mignięcie).")]
+        [Min(0.02f)] public float hitBlinkInterval = 0.08f;
+
+        [Tooltip("1 = normalny odrzut od ciosów wrogów, 0 = Kuba stoi w miejscu.")]
+        [Min(0f)] public float knockbackMultiplier = 1f;
+
+        [Tooltip("Jak szybko wygasa odrzut Kuby (m/s²).")]
+        [Min(0f)] public float knockbackDeceleration = 35f;
+
+        [Tooltip("Siła wstrząsu ekranu, gdy Kuba dostaje.")]
+        [Min(0f)] public float damageShake = 0.35f;
+
         [Header("Złom i Moc")]
         [Tooltip("Maksymalny Złom (amunicja broni dystansowej).")]
         [Min(0)] public int maxScrap = 30;

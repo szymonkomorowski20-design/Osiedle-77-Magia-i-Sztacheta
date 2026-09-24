@@ -27,13 +27,15 @@ namespace Osiedle.Editor
         /// Wczytuje plik danych albo tworzy go z wartościami domyślnymi.
         /// Istniejącego pliku nie nadpisuje, żeby nie skasować strojenia.
         /// </summary>
-        public static T LoadOrCreateData<T>(string path) where T : ScriptableObject
+        /// <param name="initialValues">Wartości startowe ustawiane tylko przy tworzeniu nowego pliku.</param>
+        public static T LoadOrCreateData<T>(string path, System.Action<T> initialValues = null) where T : ScriptableObject
         {
             var asset = AssetDatabase.LoadAssetAtPath<T>(path);
             if (asset != null) return asset;
 
             EnsureFolder(Path.GetDirectoryName(path));
             asset = ScriptableObject.CreateInstance<T>();
+            initialValues?.Invoke(asset);
             AssetDatabase.CreateAsset(asset, path);
             return asset;
         }

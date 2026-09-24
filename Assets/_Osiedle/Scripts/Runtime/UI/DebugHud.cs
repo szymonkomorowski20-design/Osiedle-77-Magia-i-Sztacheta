@@ -4,18 +4,19 @@ using UnityEngine;
 namespace Osiedle.UI
 {
     /// <summary>
-    /// Tymczasowy podgląd dla testów (lewy górny róg): HP, Złom, Moc, dash i numer ciosu.
+    /// Tymczasowy podgląd dla testów (lewy górny róg): HP, Złom, Moc, dash, numer ciosu, komunikat o śmierci.
     /// Prawdziwy HUD (butelki oranżady, wskaźnik Unitrąby) przyjdzie w osobnym etapie, z tekstami z Texts_PL.
     /// </summary>
     public class DebugHud : MonoBehaviour
     {
-        const int Width = 260;
+        const int Width = 420;
         const int LineHeight = 22;
         const int Margin = 10;
 
         [SerializeField] PlayerResources resources;
         [SerializeField] PlayerDash dash;
         [SerializeField] PlayerMelee melee;
+        [SerializeField] PlayerDeath death;
 
         GUIStyle style;
 
@@ -33,6 +34,9 @@ namespace Osiedle.UI
                 Label(ref line, $"Dash: {dash.Charges.Charges} / {dash.Charges.MaxCharges}");
             if (melee != null)
                 Label(ref line, melee.IsAttacking ? $"Cios: {melee.CurrentStep + 1}" : "Cios: —");
+            Label(ref line, death != null && death.IsDead
+                ? "KUBA WRACA NA TRZEPAK — wciśnij R, żeby spróbować jeszcze raz"
+                : "R — restart walki");
         }
 
         void Label(ref int line, string text)
